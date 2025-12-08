@@ -1,0 +1,25 @@
+#!/bin/sh
+
+LH=`git rev-parse --verify master`
+RH=`git rev-parse --verify origin/master`
+
+if [ "$LH" = "$RH" ]; then
+    echo "The master branch head was not advanced, nothing to check"
+    continue
+fi 
+
+echo "The local  master branch:"  $LH
+echo "The remote master branch:"  $RH
+
+# check the rule
+git rev-list --first-parent $LH | grep -qx $RH
+RESULT=$?
+
+if [ $RESULT -eq 0 ]
+    then
+        echo "Check the master branch: OK"
+    else
+        echo "Check the master branch: FAILED: the branches are tangled up"   
+    fi
+
+exit $RESULT
