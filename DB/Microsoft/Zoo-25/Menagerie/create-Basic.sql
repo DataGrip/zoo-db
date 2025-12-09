@@ -17,6 +17,30 @@ create table Zoo.Basic_01_Table
 )
 go
 
+exec sp_addextendedproperty
+     @name = N'MS_Description',
+     @value = N'Unique identifier, should be always positive',
+     @level0type = N'Schema', @level0name = 'Zoo',
+     @level1type = N'Table', @level1name = 'Basic_01_Table',
+     @level2type = N'Column', @level2name = 'Id'
+go
+
+exec sp_addextendedproperty
+     @name = N'MS_Description',
+     @value = N'Name of the row',
+     @level0type = N'Schema', @level0name = 'Zoo',
+     @level1type = N'Table', @level1name = 'Basic_01_Table',
+     @level2type = N'Column', @level2name = 'Name'
+go
+
+exec sp_addextendedproperty
+     @name = N'MS_Description',
+     @value = N'Additional text notes or comments',
+     @level0type = N'Schema', @level0name = 'Zoo',
+     @level1type = N'Table', @level1name = 'Basic_01_Table',
+     @level2type = N'Column', @level2name = 'Note'
+go
+
 create function Zoo.Basic_01_FormatName(@Id int, @Name varchar(26))
     returns varchar(50)
 as
@@ -33,6 +57,46 @@ select Id,
        Note,
        len(Note) as Note_Length
 from Zoo.Basic_01_Table T
+go
+
+exec sp_addextendedproperty
+     @name = N'MS_Description',
+     @value = N'Unique identifier, expected to be always positive',
+     @level0type = N'Schema', @level0name = 'Zoo',
+     @level1type = N'View', @level1name = 'Basic_01_View',
+     @level2type = N'Column', @level2name = 'Id'
+go
+
+exec sp_addextendedproperty
+     @name = N'MS_Description',
+     @value = N'Name of the row',
+     @level0type = N'Schema', @level0name = 'Zoo',
+     @level1type = N'View', @level1name = 'Basic_01_View',
+     @level2type = N'Column', @level2name = 'Name'
+go
+
+exec sp_addextendedproperty
+     @name = N'MS_Description',
+     @value = N'Formatted name with identifier in brackets',
+     @level0type = N'Schema', @level0name = 'Zoo',
+     @level1type = N'View', @level1name = 'Basic_01_View',
+     @level2type = N'Column', @level2name = 'Name_with_Id'
+go
+
+exec sp_addextendedproperty
+     @name = N'MS_Description',
+     @value = N'Additional text notes or comments',
+     @level0type = N'Schema', @level0name = 'Zoo',
+     @level1type = N'View', @level1name = 'Basic_01_View',
+     @level2type = N'Column', @level2name = 'Note'
+go
+
+exec sp_addextendedproperty
+     @name = N'MS_Description',
+     @value = N'Length of the Note column content in characters',
+     @level0type = N'Schema', @level0name = 'Zoo',
+     @level1type = N'View', @level1name = 'Basic_01_View',
+     @level2type = N'Column', @level2name = 'Note_Length'
 go
 
 begin transaction
