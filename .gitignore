@@ -1,12 +1,15 @@
+# Idea
+Sandbox
+queries
+.idea/workspace.xml
+.idea/data_source_mapping.xml
+
 # Non-applicable folders and files
 .DS_Store
 tmp
 
 # Logs
 *.log
-
-# Idea
-.idea/workspace.xml
 
 # Other binaries and packages
 *.so
