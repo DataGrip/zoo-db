@@ -1,0 +1,31 @@
+---
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+    name: zoo-mssql
+build:
+    tagPolicy:
+        dateTime:
+            format: "2006-01-02"
+            timezone: "UTC"
+    artifacts:
+        - image: registry.jetbrains.team/p/datagrip/containers/mssql-custom-"{{version}}"
+          context: .
+          docker:
+              dockerfile: 'Docker/Microsoft/"{{version}}".dockerfile'
+    local:
+        useDockerCLI: false
+        useBuildkit: true
+deploy:
+    helm:
+        releases:
+            - name: go-web-app
+              remoteChart: oci://registry.jetbrains.team/p/cb/helm-charts/simple-app
+              version: 0.3.0
+              upgradeOnChange: true
+              setValueTemplates:
+                  image: "{{.IMAGE_FULLY_QUALIFIED}}"
+                  imagePullSecret: "{{.IMAGE_PULL_SECRET}}" #"{{.IMAGE_TAG}}"
+                  applicationName: "{{.APPLICATION_NAME}}"
+              valuesFiles:
+                  - values.yaml

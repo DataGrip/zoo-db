@@ -1,0 +1,36 @@
+deployment:
+    backend:
+        image:
+            repository: registry.jetbrains.team/p/datagrip/containers/tech-radar-backend
+            tag: latest
+            pullPolicy: IfNotPresent
+        resources:
+            limits:
+                cpu: 500m
+                memory: 512Mi
+            requests:
+                cpu: 250m
+                memory: 256Mi
+    frontend:
+        image:
+            repository: registry.jetbrains.team/p/datagrip/containers/tech-radar-frontend
+            tag: latest
+            pullPolicy: IfNotPresent
+        resources:
+            limits:
+                cpu: 250m
+                memory: 256Mi
+            requests:
+                cpu: 100m
+                memory: 128Mi
+        jsonPath: "/app/visualization/docs/json/"
+    replicas: 1
+service:
+    ports:
+        - name: frontend
+          port: 80
+          targetPort: 8080
+    type: ClusterIP
+imagePullSecret: "space-registry-datagrip"
+runAsUser: 65534
+runAsGroup: 65534
