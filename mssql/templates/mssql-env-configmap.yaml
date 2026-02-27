@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mssql.fullname" . }}-sql-env
+  labels:
+  {{- include "mssql.labels" . | nindent 4 }}
+data:
+  ACCEPT_EULA: {{ .Values.sqlEnv.acceptEula | quote }}
+  MSSQL_PID: {{ .Values.sqlEnv.mssqlPid | quote }}
+  MSSQL_SA_PASSWORD: {{ .Values.sqlEnv.mssqlSaPassword | quote }}

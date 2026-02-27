@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mssql.name" . }}-haproxy
+  labels:
+  {{- include "haproxy.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "mssql.name" . }}-haproxy
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "mssql.name" . }}-haproxy
+        app.kubernetes.io/instance: {{ .Release.Name }}
+      annotations:
+        checksum/config: {{ include "haproxy.config" . | sha256sum }}
+    spec:
+      imagePullSecrets:
+      {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      containers:
+        - name: haproxy
+          image: {{ .Values.haproxy.image.repository }}:{{ .Values.haproxy.image.tag }}
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 99
+          args:
+            - -f
+            - /usr/local/etc/haproxy/haproxy.cfg
+          ports:
+            {{- range .Values.tcpServices }}
+              - containerPort: {{ .frontendPort }}
+                protocol: TCP
+            {{- end }}
+
+
+          volumeMounts:
+              - name: config
+                mountPath: /usr/local/etc/haproxy/haproxy.cfg
+                subPath: haproxy.cfg
+                readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "mssql.name" . }}-haproxy-config
+            items:
+              - key: haproxy.cfg
+                path: haproxy.cfg
