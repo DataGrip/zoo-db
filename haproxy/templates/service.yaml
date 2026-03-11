@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "mssql.name" . }}-haproxy
+  name: mssql-haproxy
   labels:
-    app.kubernetes.io/name: {{ include "mssql.name" . }}-haproxy
+    app.kubernetes.io/name: {{ include "haproxy.name" . }}-haproxy
   annotations:
 {{ .Values.haproxy.annotations | toYaml | indent 4 }}
 spec:
   type: {{ .Values.type }}
   selector:
-    app.kubernetes.io/name: {{ include "mssql.name" . }}-haproxy
+    app.kubernetes.io/name: {{ include "haproxy.name" . }}-haproxy
   ports:
   {{- .Values.servicePorts | toYaml | nindent 2 }}
   sessionAffinity: None

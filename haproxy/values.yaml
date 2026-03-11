@@ -1,0 +1,64 @@
+haproxy:
+  image:
+    repository: registry.jetbrains.team/p/datagrip/containers/haproxy
+    tag: "3.3.4"
+  resources:
+    limits:
+      memory: "500Mi"
+    requests:
+      memory: "100Mi"
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: datagripdb.labs.jb.gg
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "node-type=shared"
+    service.beta.kubernetes.io/aws-load-balancer-name: k8s-datagripdb-nlb-1
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+    service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: deregistration_delay.connection_termination.enabled=true
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: "2"  # min=2
+
+servicePorts:
+  - name: "ms14"
+    port: 25140
+    targetPort: 14334
+  - name: "ms15"
+    port: 25150
+    targetPort: 14335
+  - name: "ms16"
+    port: 25160
+    targetPort: 14336
+
+replicas: 1
+type: LoadBalancer
+pullPolicy: Always
+
+timeouts:
+  connect: 5s
+  client: 60s
+  server: 60s
+
+tcpServices:
+  - name: ms14
+    frontendPort: 14334
+    backend:
+      servers:
+        - name: ms14
+          host: ms14
+          port: 1433
+  - name: ms15
+    frontendPort: 14335
+    backend:
+      servers:
+        - name: ms15
+          host: ms15
+          port: 1433
+  - name: ms16
+    frontendPort: 14336
+    backend:
+      servers:
+        - name: ms16
+          host: ms16
+          port: 1433
+
+imagePullSecrets:
+  - name: space-registry-datagrip

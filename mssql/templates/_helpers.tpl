@@ -60,37 +60,3 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
-
-{{- define "haproxy.labels" -}}
-app.kubernetes.io/name: "haproxy"
-app.kubernetes.io/instance: {{ .Release.Name }}
-app.kubernetes.io/version: {{ .Chart.AppVersion }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | quote }}
-{{- end }}
-
-{{- define "haproxy.config" -}}
-global
-  log stdout format raw local0
-
-defaults
-  log global
-  mode tcp
-  option tcplog
-  timeout connect {{ default "5s" .Values.timeouts.connect }}
-  timeout client  {{ default "50s" .Values.timeouts.client }}
-  timeout server  {{ default "50s" .Values.timeouts.server }}
-
-{{- range $svc := .Values.tcpServices }}
-frontend tcp-in-{{ $svc.name }}
-  bind :{{ $svc.frontendPort }}
-  mode tcp
-  default_backend {{ $svc.name }}
-
-backend {{ $svc.name }}
-  mode tcp
-{{- range $srv := $svc.backend.servers }}
-  server {{ $srv.name }} {{ $srv.host }}:{{ $srv.port }}
-{{- end }}
-{{ end -}}
-{{- end }}

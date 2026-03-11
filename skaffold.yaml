@@ -29,12 +29,12 @@ build:
 deploy:
   helm:
     releases:
+      - name: zoo-db
+        chartPath: ./haproxy
+        version: 0.1.0
+        upgradeOnChange: true
       - name: zoo-mssql
         chartPath: ./mssql
         version: 0.1.0
         upgradeOnChange: true
-        #setValueTemplates:
-        #  ms14.image.tag: "{{.IMAGE_TAG}}"
-        #  ms15.image.tag: "{{.IMAGE_TAG}}"
-        #  ms16.image.tag: "{{.IMAGE_TAG}}"
-        #  haproxy.image.tag: "{{.IMAGE_TAG}}"
+

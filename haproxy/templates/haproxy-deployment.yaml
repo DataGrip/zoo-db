@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "mssql.name" . }}-haproxy
+  name: {{ .Release.Name }}
   labels:
   {{- include "haproxy.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "mssql.name" . }}-haproxy
+      app.kubernetes.io/name: {{ include "haproxy.name" . }}-haproxy
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "mssql.name" . }}-haproxy
+        app.kubernetes.io/name: {{ include "haproxy.name" . }}-haproxy
         app.kubernetes.io/instance: {{ .Release.Name }}
       annotations:
         checksum/config: {{ include "haproxy.config" . | sha256sum }}
@@ -44,7 +44,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ include "mssql.name" . }}-haproxy-config
+            name: {{ include "haproxy.name" . }}-haproxy-config
             items:
               - key: haproxy.cfg
                 path: haproxy.cfg
