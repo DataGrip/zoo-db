@@ -49,6 +49,7 @@ Directory Layout
 
 Root directories:
 * **DB** — SQL scripts that create databases and schemas for testing
+* * * NB!** All scripts for Microsoft SQL Server should be duplicated to /mssql/scripts/ directory
 * **Docker** — scripts to create docker containers with databases
 
 Both directories are organized by DBMS type. Right now, the following DBMSs are supported (code — vendor):
@@ -75,3 +76,19 @@ Key points:
 * never place a closing bracket (parenthesis, brace) in left of an opening one
 
 For other style details see the existing files.
+
+
+How to deploy to Kubernetes manually
+------------------------------------
+
+For MS SQL deployments the Heml chart is named `mssql`. All scripts that must be started when a container is UP are in `./mssql/scripts` directory.
+  
+Our default namespace is `datagrip-services`.  
+  
+* To build images for MS SQL and upload them to the Space registry, run `skaffold build`
+* To create a manifest file, run `skaffold render --output rendered.yaml`  
+* Check if `rendered.yaml` is correct
+* Deploy with `kubectl apply -f rendered.yaml`  
+OR  
+run `skaffold render | kubectl apply -f` - for automatic deployment. 
+
