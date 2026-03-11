@@ -1,5 +1,5 @@
 ---
-apiVersion: skaffold/v4beta13
+apiVersion: skaffold/v4beta9
 kind: Config
 metadata:
   name: zoo-mssql
