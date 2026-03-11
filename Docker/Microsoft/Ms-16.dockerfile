@@ -1,11 +1,6 @@
-FROM mcr.microsoft.com/mssql/server:2022-CU19-ubuntu-22.04
+FROM registry.jetbrains.team/p/datagrip/containers/mssql-server-linux:2022orig
 
-LABEL authors="Leo"
-
-ENV MSSQL_PID=Developer
-ENV ACCEPT_EULA=Y
-ENV MSSQL_SA_PASSWORD=Mini-pass
-
+LABEL author=DataGrip
 USER root
 
 RUN apt-get update && apt-get install -y \
@@ -13,14 +8,26 @@ RUN apt-get update && apt-get install -y \
     iproute2 \
     debconf-utils \
     gnupg2 \
-    unixodbc-dev
+    unixodbc-dev \
+    jq
 
+#RUN useradd -M -s /bin/bash -u 10001 -g 0 mssql
+RUN usermod -u 1000 mssql
 RUN mkdir /scripts
-RUN chown -R 10001:10001 /scripts
+RUN chown -R 1000:1000 /scripts
 RUN chmod -R 771 /scripts
+RUN chown -R 1000:1000 /opt/mssql/bin/
 
-ADD ./entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+ADD ./entrypoint-16.sh /
+RUN chmod +x /entrypoint-16.sh
+
+RUN mkdir -p /.system && \
+    chown 1000:1000 /.system && \
+    chmod 775 /.system
+
+RUN mkdir -p /var/opt/mssql && \
+    chown -R mssql:1000 /var/opt/mssql && \
+    chmod -R g+rwx /var/opt/mssql
 
 USER mssql
 
@@ -28,4 +35,4 @@ EXPOSE 1433
 
 WORKDIR /scripts
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint-16.sh"]

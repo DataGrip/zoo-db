@@ -10,7 +10,9 @@ services:
         ports:
             - "25140:1433"
         volumes:
-            - "../DB/Microsoft/Zoo-25/Menagerie:/scripts"
+            - "../mssql/scripts:/scripts"
+        env_file:
+            - .mssql.env
         deploy:
             resources:
                 limits:
@@ -29,11 +31,13 @@ services:
         build:
             context: Microsoft
             dockerfile: Ms-15.dockerfile
-        privileged: true
+        #privileged: true
         ports:
             - "25150:1433"
         volumes:
-            - "../DB/Microsoft/Zoo-25/Menagerie:/scripts"
+            - "../mssql/scripts:/scripts"
+        env_file:
+            - .mssql.env
         deploy:
             resources:
                 limits:
@@ -52,11 +56,13 @@ services:
         build:
             context: Microsoft
             dockerfile: Ms-16.dockerfile
-#        privileged: true
+        # privileged: true
         ports:
-            - "25160:1433"
+            - "25161:1433"
         volumes:
-          - "../DB/Microsoft/Zoo-25/Menagerie:/scripts"
+            - "../mssql/scripts:/scripts"
+        env_file:
+            - .mssql.env
         deploy:
             resources:
                 limits:

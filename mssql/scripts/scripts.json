@@ -1,0 +1,26 @@
+{
+  "Ms-11": [
+    "create-Database.sql",
+    "create-Basic.sql"
+  ],
+  "Ms-14": [
+    "create-Database.sql",
+    "create-Basic.sql",
+    "create-Temporal.sql",
+    "create-Partitions.sql"
+  ],
+  "Ms-15": [
+    "create-Database.sql",
+    "create-Basic.sql",
+    "create-Basic-15.sql",
+    "create-Temporal.sql",
+    "create-Partitions.sql"
+  ],
+  "Ms-16": [
+    "create-Database.sql",
+    "create-Basic.sql",
+    "create-Basic-15.sql",
+    "create-Temporal.sql",
+    "create-Partitions.sql"
+  ]
+}

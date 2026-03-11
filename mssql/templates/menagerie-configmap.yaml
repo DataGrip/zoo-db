@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: menagerie
+  labels:
+    io.kompose.service: mssql
+  {{- include "mssql.labels" . | nindent 4 }}
+data:
+  {{- range $path, $bytes := .Files.Glob "scripts/*" }}
+  {{ $path | base }}: |
+{{ $bytes | toString | indent 4 }}
+  {{- end }}
