@@ -3,13 +3,14 @@ kind: Service
 metadata:
   name: {{ include "haproxy.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "haproxy.name" . }}
+    app.kubernetes.io/name: {{ include "haproxy.name" . }}-haproxy
   annotations:
 {{ .Values.haproxy.annotations | toYaml | indent 4 }}
 spec:
   type: {{ .Values.type }}
   selector:
-    app.kubernetes.io/name: {{ include "haproxy.name" . }}
+    app.kubernetes.io/instance: zoo-db
+    app.kubernetes.io/name: {{ include "haproxy.name" . }}-haproxy
   ports:
   {{- .Values.servicePorts | toYaml | nindent 2 }}
   sessionAffinity: None
