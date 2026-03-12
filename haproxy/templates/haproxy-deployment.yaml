@@ -44,7 +44,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ include "haproxy.name" . }}-config
+            name: {{ include "haproxy.name" . }}-haproxy-config
             items:
               - key: haproxy.cfg
                 path: haproxy.cfg
