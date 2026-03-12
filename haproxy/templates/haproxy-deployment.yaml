@@ -8,12 +8,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "haproxy.name" . }}
+      app.kubernetes.io/name: {{ include "haproxy.name" . }}-haproxy
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "haproxy.name" . }}
+        app.kubernetes.io/name: {{ include "haproxy.name" . }}-haproxy
         app.kubernetes.io/instance: {{ .Release.Name }}
       annotations:
         checksum/config: {{ include "haproxy.config" . | sha256sum }}
