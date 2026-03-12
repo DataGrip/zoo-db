@@ -49,7 +49,7 @@ Directory Layout
 
 Root directories:
 * **DB** — SQL scripts that create databases and schemas for testing
-* * * NB!** All scripts for Microsoft SQL Server should be duplicated to /mssql/scripts/ directory
+* * * NB!   All scripts for Microsoft SQL Server should be duplicated to `/mssql/scripts/` directory. Update `./mssql/scripts/scripts.json` if you add new scripts or remove ones.
 * **Docker** — scripts to create docker containers with databases
 
 Both directories are organized by DBMS type. Right now, the following DBMSs are supported (code — vendor):
@@ -78,17 +78,29 @@ Key points:
 For other style details see the existing files.
 
 
+How to connect to databases in Kubernetes cluster  
+------------------------------------------------- 
+
+Use the following connection strings:  
+  
+`jdbc:sqlserver://datagripdb.labs.jb.gg:25140;username=sa;password=Mini-pass` for MS SQL Server 14  
+`jdbc:sqlserver://datagripdb.labs.jb.gg:25150;username=sa;password=Mini-pass` for MS SQL Server 15  
+`jdbc:sqlserver://datagripdb.labs.jb.gg:25160;username=sa;password=Mini-pass` for MS SQL Server 16  
+
+  
 How to deploy to Kubernetes manually
 ------------------------------------
 
-For MS SQL deployments the Heml chart is named `mssql`. All scripts that must be started when a container is UP are in `./mssql/scripts` directory.
+For MS SQL databases there is a Helm chart named `mssql`. All scripts that must be started when a container is UP are in `./mssql/scripts` directory. Update `./mssql/scripts/scripts.json` if you add new scripts or remove ones.  
+For Load Balancer deployment there is a Helm chart named `haproxy`.  
   
 Our default namespace is `datagrip-services`.  
+
+In case you need to update deployment manually, follow these steps:  
   
-* To build images for MS SQL and upload them to the Space registry, run `skaffold build`
-* To create a manifest file, run `skaffold render --output rendered.yaml`  
-* Check if `rendered.yaml` is correct
+* To build images for MS SQL and upload them to the Space registry, run `skaffold build` from the root directory  
+* To create and check a manifest file, run `skaffold render --output rendered.yaml`  
+* Check if `rendered.yaml` is correct  
 * Deploy with `kubectl apply -f rendered.yaml`  
 OR  
 run `skaffold render | kubectl apply -f` - for automatic deployment. 
-
