@@ -91,11 +91,17 @@ Use the following connection strings:
 How to deploy to Kubernetes manually
 ------------------------------------
 
+All changes are **automatically** merged into containers after they are pushed to the `master` branch.  
+  
+To check if the build or deployment was successful, go to **TeamCity-IT**:    
+[builds](https://teamcity-it.intellij.net/buildConfiguration/KubernetesController_EksIrelandEuWest1_datagrip_services_teamcity_it_generated_project_BuildZooDb#all-projects)    
+[deploys](https://teamcity-it.intellij.net/buildConfiguration/KubernetesController_EksIrelandEuWest1_datagrip_services_teamcity_it_generated_project_DeployZooDb#all-projects)  
+  
+Our default namespace is `datagrip-services`.  
+  
 For MS SQL databases there is a Helm chart named `mssql`. All scripts that must be started when a container is UP are in `./mssql/scripts` directory. Update `./mssql/scripts/scripts.json` if you add new scripts or remove ones.  
 For Load Balancer deployment there is a Helm chart named `haproxy`.  
   
-Our default namespace is `datagrip-services`.  
-
 In case you need to update deployment manually, follow these steps:  
   
 * To build images for MS SQL and upload them to the Space registry, run `skaffold build` from the root directory  
