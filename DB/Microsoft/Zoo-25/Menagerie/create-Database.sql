@@ -37,9 +37,9 @@ go
 use Menagerie
 go
 
-exec sp_addextendedproperty @name='Caption', @value=N'Zoopark'
-exec sp_addextendedproperty @name='Note', @value=N'A lot of different objects'
-exec sp_addextendedproperty @name=N'MS_Description', @value=N'DataGrip Static Tests Database'
+exec sys.sp_addextendedproperty @name='Caption', @value=N'Zoopark'
+exec sys.sp_addextendedproperty @name='Note', @value=N'A lot of different objects'
+exec sys.sp_addextendedproperty @name=N'MS_Description', @value=N'DataGrip Static Tests Database'
 go
 
 
@@ -47,9 +47,9 @@ go
 create user Curator from login Curator
 go
 
-exec sp_addrolemember 'db_ddladmin', 'Curator'
-exec sp_addrolemember 'db_datareader', 'Curator'
-exec sp_addrolemember 'db_datawriter', 'Curator'
+alter role db_ddladmin add member Curator
+alter role db_datareader add member Curator
+alter role db_datawriter add member Curator
 go
 
 create schema Zoo authorization Curator
@@ -67,6 +67,6 @@ create user Tourist
     with default_schema = Zoo
 go
 
-exec sp_addrolemember 'db_datareader', 'Tourist'
+alter role db_datareader add member Tourist
 go
 
