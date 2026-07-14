@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Sanctuarium: Zoo_231" group="Dev/Oracle" connection-mode="Single" single-connection="true" uuid="cda1dddb-c843-4e66-95be-3c9b1d2352dd">
+    <data-source source="LOCAL" name="Sanctuarium: Zoo_231" single-connection="true" group="Dev/Oracle" uuid="cda1dddb-c843-4e66-95be-3c9b1d2352dd">
       <driver-ref>oracle.19</driver-ref>
       <auto-commit>false</auto-commit>
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
@@ -142,6 +142,64 @@
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://datagripdb.labs.jb.gg:25160;username=Tourist</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Din Oracle 11.2 Sys" group="Dev/Oracle" uuid="d89f5d7b-545b-41a3-807b-5fa21d2bb822">
+      <driver-ref>oracle.19</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//dockerdb.westeurope.cloudapp.azure.com:1521/xe</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="superuser" value="true" />
+      </jdbc-additional-properties>
+    </data-source>
+    <data-source source="LOCAL" name="Din Oracle 11.2 Zoo_26" group="Dev/Oracle" uuid="73bf920a-8f0d-4ae5-9f03-7dd02bb4965c">
+      <driver-ref>oracle.19</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//dockerdb.westeurope.cloudapp.azure.com:1521/xe</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="superuser" value="true" />
+      </jdbc-additional-properties>
+    </data-source>
+    <data-source source="LOCAL" name="Din Oracle 11.2 Tourist_A" group="Dev/Oracle" uuid="3c2e8a5f-0787-447b-903d-71a812b33302">
+      <driver-ref>oracle.19</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:Tourist_A/tour@//dockerdb.westeurope.cloudapp.azure.com:1521/xe</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="superuser" value="true" />
+      </jdbc-additional-properties>
+    </data-source>
+    <data-source source="LOCAL" name="Din Oracle 11.2 Tourist_C" group="Dev/Oracle" uuid="5e17fe2c-de0e-45a8-82be-de45d31180f6">
+      <driver-ref>oracle.19</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:Tourist_C/tour@//dockerdb.westeurope.cloudapp.azure.com:1521/xe</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="superuser" value="true" />
+      </jdbc-additional-properties>
+    </data-source>
+    <data-source source="LOCAL" name="Din Oracle 11.2 Tourist_D" group="Dev/Oracle" uuid="13a350d6-8819-4607-a901-8da02767bc2d">
+      <driver-ref>oracle.19</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:Tourist_D/tour@//dockerdb.westeurope.cloudapp.azure.com:1521/xe</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="superuser" value="true" />
+      </jdbc-additional-properties>
+    </data-source>
+    <data-source source="LOCAL" name="Din Oracle 11.2 Tourist_S" group="Dev/Oracle" uuid="f0a6d3ab-d40a-4780-b1e0-99e95dd829a0">
+      <driver-ref>oracle.19</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:Tourist_S/tour@//dockerdb.westeurope.cloudapp.azure.com:1521/xe</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="superuser" value="true" />
+      </jdbc-additional-properties>
     </data-source>
   </component>
 </project>
