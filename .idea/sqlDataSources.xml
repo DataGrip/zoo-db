@@ -12,7 +12,7 @@
               <option value="file://$PROJECT_DIR$/DB/Oracle/Zoo-25/Create" />
             </array>
           </option>
-          <option name="group" value="Oracle" />
+          <option name="group" value="Dev/Oracle" />
           <option name="outLayout" value="File per object by schema.groovy" />
         </State>
         <State>
@@ -24,7 +24,7 @@
               <option value="file://$PROJECT_DIR$/DB/Microsoft/Zoo-25/Create" />
             </array>
           </option>
-          <option name="group" value="Microsoft" />
+          <option name="group" value="Dev/Microsoft" />
           <option name="outLayout" value="File per object by schema.groovy" />
         </State>
       </list>

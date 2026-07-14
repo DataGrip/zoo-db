@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Sanctuarium: Zoo_231" single-connection="true" group="Oracle" uuid="cda1dddb-c843-4e66-95be-3c9b1d2352dd">
+    <data-source source="LOCAL" name="Sanctuarium: Zoo_231" group="Dev/Oracle" connection-mode="Single" single-connection="true" uuid="cda1dddb-c843-4e66-95be-3c9b1d2352dd">
       <driver-ref>oracle.19</driver-ref>
       <auto-commit>false</auto-commit>
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
@@ -12,7 +12,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="Sanctuarium: Zoo_231 by Guest" group="Oracle" uuid="464a0b58-aa50-4406-9f60-f3808c5e3040">
+    <data-source source="LOCAL" name="Sanctuarium: Zoo_231 by Guest" group="Dev/Oracle" uuid="464a0b58-aa50-4406-9f60-f3808c5e3040">
       <driver-ref>oracle.19</driver-ref>
       <auto-commit>false</auto-commit>
       <schema-control>MANUAL</schema-control>
@@ -23,7 +23,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="MS-14: Zoo by Curator" group="Microsoft" uuid="8aa386ed-1881-455a-b1f2-0f0dfb9b7604">
+    <data-source source="LOCAL" name="Dev-MS-14: Zoo by Curator" group="Dev/Microsoft" uuid="8aa386ed-1881-455a-b1f2-0f0dfb9b7604">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <remarks>Version 14</remarks>
@@ -31,7 +31,7 @@
       <jdbc-url>jdbc:sqlserver://elephant:25140;database=Menagerie</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="MS-14 by SA" group="Microsoft" uuid="87ac0a37-8c78-4062-9b40-7312e230d9f2">
+    <data-source source="LOCAL" name="MS-14 by SA" group="Dev/Microsoft" uuid="87ac0a37-8c78-4062-9b40-7312e230d9f2">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <remarks>Version 14</remarks>
@@ -39,7 +39,7 @@
       <jdbc-url>jdbc:sqlserver://elephant:25140</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="MS-15: Zoo by Curator" group="Microsoft" uuid="74c99d68-15af-4dd3-8de9-03ac9be45f85">
+    <data-source source="LOCAL" name="Dev-MS-15: Zoo by Curator" group="Dev/Microsoft" uuid="74c99d68-15af-4dd3-8de9-03ac9be45f85">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <remarks>Version 15</remarks>
@@ -47,7 +47,7 @@
       <jdbc-url>jdbc:sqlserver://elephant:25150;database=Menagerie</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="MS-15 by SA" group="Microsoft" uuid="7b34f370-1283-44ae-bf6d-119f885a86b8">
+    <data-source source="LOCAL" name="Dev-MS-15 by SA" group="Dev/Microsoft" uuid="7b34f370-1283-44ae-bf6d-119f885a86b8">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <remarks>Version 15</remarks>
@@ -55,7 +55,7 @@
       <jdbc-url>jdbc:sqlserver://elephant:25150</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="MS-16: Zoo by Curator" group="Microsoft" uuid="2be143d1-40a2-4c18-8d66-84ecb1592bdc">
+    <data-source source="LOCAL" name="Dev-MS-16: Zoo by Curator" group="Dev/Microsoft" uuid="2be143d1-40a2-4c18-8d66-84ecb1592bdc">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <remarks>Version 16</remarks>
@@ -63,12 +63,84 @@
       <jdbc-url>jdbc:sqlserver://elephant:25160;database=Menagerie</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="MS-16 by SA" group="Microsoft" uuid="5959da46-edf4-4866-9a00-d74fd2b876f3">
+    <data-source source="LOCAL" name="Dev-MS-16 by SA" group="Dev/Microsoft" uuid="5959da46-edf4-4866-9a00-d74fd2b876f3">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <remarks>Version 16</remarks>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://elephant:25160</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Qub-MS-14-admin" group="Qub/Microsoft" uuid="32ae6311-6a36-4a09-b943-3c866ac9673e">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://datagripdb.labs.jb.gg:25140;database=Menagerie;username=sa</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Qub-MS-14-curator" group="Qub/Microsoft" uuid="84094e22-1abf-4e77-a2ca-66365859c49f">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://datagripdb.labs.jb.gg:25140;database=Menagerie;username=Curator</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Qub-MS-14-tourist" group="Qub/Microsoft" uuid="dc940ead-607e-49fb-82d7-60c40887a0fe">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://datagripdb.labs.jb.gg:25140;username=Tourist</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Qub-MS-15-admin" group="Qub/Microsoft" uuid="f506f139-0895-4f38-b499-f7a6d86436c8">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://datagripdb.labs.jb.gg:25150;database=Menagerie;username=sa</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Qub-MS-15-curator" group="Qub/Microsoft" uuid="7940e6b0-dc81-4ef0-a6ed-fc360c2678cd">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://datagripdb.labs.jb.gg:25150;database=Menagerie;username=Curator</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Qub-MS-15-tourist" group="Qub/Microsoft" uuid="9cc4c106-9825-4f2c-88e5-39766b81f7ba">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://datagripdb.labs.jb.gg:25150;username=Tourist</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Qub-MS-16-admin" group="Qub/Microsoft" uuid="20b00b06-78bc-4673-a3b3-c8c9a366a5cf">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://datagripdb.labs.jb.gg:25160;database=Menagerie;username=sa</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Qub-MS-16-curator" group="Qub/Microsoft" uuid="f7beabb3-6ecd-458f-a84f-73b2c510f63d">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://datagripdb.labs.jb.gg:25160;database=Menagerie;username=Curator</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Qub-MS-16-tourist" group="Qub/Microsoft" uuid="a1f3fdbb-2308-4da8-b87b-2c5ca6723dcd">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://datagripdb.labs.jb.gg:25160;username=Tourist</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

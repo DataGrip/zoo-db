@@ -81,7 +81,14 @@ For other style details see the existing files.
 How to connect to databases in Kubernetes cluster  
 ------------------------------------------------- 
 
-Use the following connection strings:  
+Use the following connection strings for testing:
+
+`jdbc:sqlserver://datagripdb.labs.jb.gg:25140;username=Tourist;password=<PASSWORD>` for MS SQL Server 14  
+`jdbc:sqlserver://datagripdb.labs.jb.gg:25150;username=Tourist;password=<PASSWORD>` for MS SQL Server 15  
+`jdbc:sqlserver://datagripdb.labs.jb.gg:25160;username=Tourist;password=<PASSWORD>` for MS SQL Server 16
+
+
+Use the following connection strings for creating databases (not for testing):  
   
 `jdbc:sqlserver://datagripdb.labs.jb.gg:25140;username=sa;password=<PASSWORD>` for MS SQL Server 14  
 `jdbc:sqlserver://datagripdb.labs.jb.gg:25150;username=sa;password=<PASSWORD>` for MS SQL Server 15  
