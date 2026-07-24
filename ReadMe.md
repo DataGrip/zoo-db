@@ -76,6 +76,16 @@ Key points:
 * never place a closing bracket (parenthesis, brace) in left of an opening one
 
 For other style details see the existing files.
+        
+
+Data Sources
+------------
+
+Normally, we configure a large number of data sources in this project.
+However, it is currently challenging to separate shared and personal data sources,
+because they are all stored in a single `dataSources.xml` file.
+Therefore, we decided not to include this file (and also the  `db-forest-config.xml` file)
+in the repository.
 
 
 How to connect to databases in Kubernetes cluster  
