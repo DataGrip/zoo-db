@@ -4,6 +4,10 @@ queries
 .idea/workspace.xml
 .idea/data_source_mapping.xml
 
+# Don't track data sources because the sets of data sources are different for different people
+.idea/dataSource*
+.idea/db-forest-config.xml
+
 # Non-applicable folders and files
 .DS_Store
 tmp
