@@ -7,4 +7,3 @@ metadata:
 data:
   ACCEPT_EULA: {{ .Values.sqlEnv.acceptEula | quote }}
   MSSQL_PID: {{ .Values.sqlEnv.mssqlPid | quote }}
-  MSSQL_SA_PASSWORD: {{ .Values.sqlEnv.mssqlSaPassword | quote }}

@@ -57,9 +57,9 @@ spec:
               name: {{ include "mssql.fullname" . }}-sql-env
         - name: MSSQL_SA_PASSWORD
           valueFrom:
-            configMapKeyRef:
-              key: MSSQL_SA_PASSWORD
-              name: {{ include "mssql.fullname" . }}-sql-env
+            secretKeyRef:
+              key: password
+              name: {{ include "mssql.fullname" . }}-sa-password
         image: {{ .Values.ms16.image.repository }}:{{ .Values.ms16.image.tag | default
           .Chart.AppVersion }}
         ports:
