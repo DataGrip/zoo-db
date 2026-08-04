@@ -39,7 +39,7 @@ externalSecret:
 
 
 envSecrets:
-  - secretKey: MSSQL_SA_PASSWORD
+  - secretKey: password
     remoteRef:
       key: Kubernetes/zoodb/MSSQL
       property: password
