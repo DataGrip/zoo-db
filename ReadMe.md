@@ -97,6 +97,14 @@ Use the following connection strings for testing:
 `jdbc:sqlserver://datagripdb.labs.jb.gg:25150;username=Tourist;password=<PASSWORD>` for MS SQL Server 15  
 `jdbc:sqlserver://datagripdb.labs.jb.gg:25160;username=Tourist;password=<PASSWORD>` for MS SQL Server 16
 
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25110:XE`  for Oracle 11.2 single  
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25111:ORCL`  for Oracle 12.2 single  
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25112/ORCLCDB`  for Oracle 12.2 multitenant  
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25113:ORCL`  for Oracle 19.3 single   
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25114/ORCLCDB`  for Oracle 19.3 multitenant  
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25115:XE`  for Oracle 21.3 multitenant
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25116:FREE`  for Oracle 23.26 multitenant
+
 
 Use the following connection strings for creating databases (not for testing):  
   

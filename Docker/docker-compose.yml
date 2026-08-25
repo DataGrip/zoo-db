@@ -1,5 +1,7 @@
 services:
 
+# ----------- MS SQL ---------------
+
     ms14:
         container_name: ms14
         hostname: ms14
@@ -58,7 +60,7 @@ services:
             dockerfile: Ms-16.dockerfile
         # privileged: true
         ports:
-            - "25161:1433"
+            - "25160:1433"
         volumes:
             - "../mssql/scripts:/scripts"
         env_file:
@@ -74,3 +76,137 @@ services:
             interval: 10s
             timeout: 10s
             retries: 15
+
+# ----------- Oracle ---------------
+
+    oracle-11.2-single:
+        container_name: oracle-11.2-single
+        hostname: oracle-11.2-single
+        image: registry.jetbrains.team/p/datagrip/containers/oracle:11.2.0.2-xe-orig
+        ports:
+            - "25110:1521"
+        shm_size: 1g
+        env_file: .oracle.env
+        #volumes:
+        #    - "../oracle/scripts:/u01/app/oracle/scripts/setup"
+        healthcheck:
+            test: ["CMD-SHELL", "/u01/app/oracle/checkDBStatus.sh"]
+            interval: 30s
+            timeout: 10s
+            retries: 10
+            start_period: 5m
+
+
+    oracle-12.2-single:
+        container_name: oracle-12.2-single
+        build:
+            context: Oracle
+            dockerfile: Ora-12s.dockerfile
+            no_cache: true
+        hostname: oracle-12.2-single
+        env_file: .oracle.env
+        ports:
+            - "25111:1521"
+        shm_size: 1g
+        #volumes:
+        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        healthcheck:
+            test: ["CMD-SHELL", "sqlplus -L sys/${ORACLE_PWD}@//localhost:1521/${ORACLE_SID} as sysdba <<< \"select 1 from dual;\" || exit 1"]
+            interval: 30s
+            timeout: 10s
+            retries: 10
+            start_period: 5m
+
+
+    oracle-12.2-multi:
+        image: registry.jetbrains.team/p/datagrip/containers/oracle:12.2.0.1-e-orig
+        hostname: oracle-12.2-multi
+        container_name: oracle-12.2-multi
+        env_file: .oracle.env
+        ports:
+            - "25112:1521"
+        shm_size: 1g
+        #volumes:
+        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        healthcheck:
+            test: ["CMD-SHELL", "echo 'show pdbs' | sqlplus -S -L / as sysdba | grep -q 'READ WRITE' || exit 1"]
+            interval: 30s
+            timeout: 10s
+            retries: 10
+            start_period: 5m
+
+
+    oracle-19.3-single:
+        build:
+          context: Oracle
+          dockerfile: Ora-19s.dockerfile
+          no_cache: true
+        hostname: oracle-19.3-single
+        container_name: oracle_19.3_single
+        env_file: .oracle.env
+        ports:
+            - "25113:1521"
+        shm_size: 1g
+        #volumes:
+        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        healthcheck:
+            test: ["CMD-SHELL", "sqlplus -L sys/${ORACLE_PWD}@//localhost:1521/${ORACLE_SID} as sysdba <<< 'select 1 from dual;' || exit 1"]
+            interval: 30s
+            timeout: 10s
+            retries: 10
+            start_period: 5m
+
+
+    oracle-19.3-multi:
+        image: registry.jetbrains.team/p/datagrip/containers/oracle:19.3-e-orig
+        hostname: oracle-19.3-multi
+        container_name: oracle-19.3-multi
+        env_file: .oracle.env
+        ports:
+            - "25114:1521"
+        shm_size: 1g
+        #volumes:
+        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        healthcheck:
+            test: grep "Database creation complete" /opt/oracle/cfgtoollogs/dbca/ORCLCDB/ORCLCDB.log || exit 1
+            interval: 30s
+            timeout: 10s
+            retries: 10
+            start_period: 5m
+
+
+    oracle-21.3-multi:
+        image: registry.jetbrains.team/p/datagrip/containers/oracle:21.3-xe-orig
+        hostname: oracle-21.3-multi
+        container_name: oracle-21.3-multi
+        env_file: .oracle.env
+        ports:
+            - "25115:1521"
+        shm_size: 1g
+        #volumes:
+        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        healthcheck:
+            test: grep "Database creation complete" /opt/oracle/cfgtoollogs/dbca/XE/XE.log || exit 1
+            interval: 30s
+            timeout: 10s
+            retries: 10
+            start_period: 5m
+
+
+    oracle-23.26-multi:
+        image: registry.jetbrains.team/p/datagrip/containers/oracle:23.26.2.0-free-orig
+        hostname: oracle-23.26-multi
+        container_name: oracle_23.26_multi
+        env_file: .oracle.env
+        ports:
+            - "25116:1521"
+        shm_size: 1g
+        #volumes:
+        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        healthcheck:
+            test: grep "Database creation complete" /opt/oracle/cfgtoollogs/dbca/FREE/FREE.log || exit 1
+            interval: 30s
+            timeout: 10s
+            retries: 10
+            start_period: 5m
+
