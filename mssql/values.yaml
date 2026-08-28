@@ -1,7 +1,7 @@
 ms14:
   image:
-    repository:  registry.jetbrains.team/p/datagrip/containers/mssql-custom-14
-    tag: latest
+    repository:  registry.jetbrains.team/p/datagrip/containers/mssql-custom
+    tag: 14
   resources:
     limits:
       memory: "4Gi"
@@ -9,8 +9,8 @@ ms14:
       memory: "250Mi"
 ms15:
   image:
-    repository: registry.jetbrains.team/p/datagrip/containers/mssql-custom-15
-    tag: latest
+    repository: registry.jetbrains.team/p/datagrip/containers/mssql-custom
+    tag: 15
   resources:
     limits:
       memory: "4Gi"
@@ -18,8 +18,8 @@ ms15:
       memory: "250Mi"
 ms16:
   image:
-    repository: registry.jetbrains.team/p/datagrip/containers/mssql-custom-16
-    tag: latest
+    repository: registry.jetbrains.team/p/datagrip/containers/mssql-custom
+    tag: 16
   resources:
     limits:
       memory: "4Gi"
