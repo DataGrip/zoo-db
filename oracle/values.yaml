@@ -1,0 +1,109 @@
+oracle11s:
+  image:
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle
+    tag: 11.2.0.2-xe-orig
+  resources:
+    limits:
+      memory: "10Gi"
+      ephemeral-storage: "3Gi"
+    requests:
+      cpu: "200m"
+      memory: "500Mi"
+      ephemeral-storage: "1Gi"
+oracle12s:
+  image:
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
+    tag: 12.2.0.2-noncdb
+  resources:
+    limits:
+      memory: "10Gi"
+      ephemeral-storage: "3Gi"
+    requests:
+      cpu: "200m"
+      memory: "500Mi"
+      ephemeral-storage: "1Gi"
+oracle12m:
+  image:
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle
+    tag: 12.2.0.1-e-orig
+  resources:
+    limits:
+      memory: "4Gi"
+      ephemeral-storage: "2Gi"
+    requests:
+      memory: "500Mi"
+      ephemeral-storage: "1Gi"
+oracle19s:
+  image:
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
+    tag: 19.3-noncdb
+  resources:
+    limits:
+      memory: "10Gi"
+      ephemeral-storage: "3Gi"
+    requests:
+      cpu: "200m"
+      memory: "500Mi"
+      ephemeral-storage: "1Gi"
+oracle19m:
+  image:
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle
+    tag: 19.3-e-orig
+  resources:
+    limits:
+      memory: "10Gi"
+      ephemeral-storage: "3Gi"
+    requests:
+      cpu: "200m"
+      memory: "500Mi"
+      ephemeral-storage: "1Gi"
+oracle21m:
+  image:
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle
+    tag: 21.3-xe-orig
+  resources:
+    limits:
+      memory: "10Gi"
+      ephemeral-storage: "3Gi"
+    requests:
+      cpu: "200m"
+      memory: "500Mi"
+      ephemeral-storage: "1Gi"
+oracle23m:
+  image:
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle
+    tag: 23.26.2.0-free-orig
+  resources:
+    limits:
+      memory: "10Gi"
+      ephemeral-storage: "3Gi"
+    requests:
+      cpu: "200m"
+      memory: "500Mi"
+      ephemeral-storage: "1Gi"
+
+replicas: 1
+
+pullPolicy: Always
+
+# Directory the setup scripts are mounted into
+scriptsMountPath:
+  # 11.2.0.2
+  oracle11s: "/u01/app/oracle/scripts/setup"
+  # 12.2 / 19.3 / 21.3 / 23.26
+  default: "/opt/oracle/scripts/setup"
+
+#sqlEnv: {}
+
+externalSecret:
+  refreshInterval: 1h
+
+envSecrets:
+  - secretKey: password
+    remoteRef:
+      key: Kubernetes/zoodb/Oracle
+      property: password
+
+
+imagePullSecrets:
+  - name: space-registry-datagrip
