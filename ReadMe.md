@@ -97,13 +97,13 @@ Use the following connection strings for testing:
 `jdbc:sqlserver://datagripdb.labs.jb.gg:25150;username=Tourist;password=<PASSWORD>` for MS SQL Server 15  
 `jdbc:sqlserver://datagripdb.labs.jb.gg:25160;username=Tourist;password=<PASSWORD>` for MS SQL Server 16
 
-`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25110:XE`  for Oracle 11.2 single  
-`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25111:ORCL`  for Oracle 12.2 single  
-`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25112/ORCLCDB`  for Oracle 12.2 multitenant  
-`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25113:ORCL`  for Oracle 19.3 single   
-`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25114/ORCLCDB`  for Oracle 19.3 multitenant  
-`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25115:XE`  for Oracle 21.3 multitenant
-`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25116:FREE`  for Oracle 23.26 multitenant
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25110:XE`        for Oracle 11.2  non-CDB  
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25111:ORCL`      for Oracle 12.2  non-CDB  
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25112/ORCLCDB`   for Oracle 12.2  multitenant  
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25113:ORCL`      for Oracle 19.3  non-CDB   
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25114/ORCLCDB`   for Oracle 19.3  multitenant  
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25115:XE`        for Oracle 21.3  multitenant
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25116:FREE`      for Oracle 23.26 multitenant
 
 
 Use the following connection strings for creating databases (not for testing):  
@@ -112,24 +112,38 @@ Use the following connection strings for creating databases (not for testing):
 `jdbc:sqlserver://datagripdb.labs.jb.gg:25150;username=sa;password=<PASSWORD>` for MS SQL Server 15  
 `jdbc:sqlserver://datagripdb.labs.jb.gg:25160;username=sa;password=<PASSWORD>` for MS SQL Server 16  
 
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25110:XE`        for Oracle 11.2  non-CDB  
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25111:ORCL`      for Oracle 12.2  non-CDB  
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25112/ORCLCDB`   for Oracle 12.2  multitenant  
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25113:ORCL`      for Oracle 19.3  non-CDB   
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25114/ORCLCDB`   for Oracle 19.3  multitenant  
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25115:XE`        for Oracle 21.3  multitenant
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25116:FREE`      for Oracle 23.26 multitenant
   
 How to deploy to Kubernetes manually
 ------------------------------------
 
 All changes are **automatically** merged into containers after they are pushed to the `master` branch.  
+Our default namespace in the K8s cluster is `datagrip-services`.  
+
+To check whether a deployment is successful, go to **TeamCity-IT**:    
+[deploys](https://teamcity-it.intellij.net/buildConfiguration/KubernetesController_EksIrelandEuWest1_datagrip_services_teamcity_it_generated_project_DeployZooDb#all-projects)
   
-To check if the build or deployment was successful, go to **TeamCity-IT**:    
-[builds](https://teamcity-it.intellij.net/buildConfiguration/KubernetesController_EksIrelandEuWest1_datagrip_services_teamcity_it_generated_project_BuildZooDb#all-projects)    
-[deploys](https://teamcity-it.intellij.net/buildConfiguration/KubernetesController_EksIrelandEuWest1_datagrip_services_teamcity_it_generated_project_DeployZooDb#all-projects)  
   
-Our default namespace is `datagrip-services`.  
-  
-For MS SQL databases there is a Helm chart named `mssql`. All scripts that must be started when a container is UP are in `./mssql/scripts` directory. Update `./mssql/scripts/scripts.json` if you add new scripts or remove ones.  
-For Load Balancer deployment there is a Helm chart named `haproxy`.  
-  
+### HELM charts:
+
+`mssql` - For MS SQL databases. All scripts that must be started when a container is UP are in `./mssql/scripts` directory. 
+**Update** `./mssql/scripts/scripts.json` if you add new scripts or remove ones.  
+
+`oracle` - For Oracle databases. All scripts that must be started when a container is UP are in `./oracle/scripts` directory. 
+**Update** `./oracle/scripts/scripts.json` if you add new scripts or remove ones.  
+
+`haproxy` - For Load Balancer deployment.  
+
+### Skaffold
+
 In case you need to update deployment manually, follow these steps:  
   
-* To build images for MS SQL and upload them to the Space registry, run `skaffold build` from the root directory  
 * To create and check a manifest file, run `skaffold render --output rendered.yaml`  
 * Check if `rendered.yaml` is correct  
 * Deploy with `kubectl apply -f rendered.yaml`  

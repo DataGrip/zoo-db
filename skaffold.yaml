@@ -3,29 +3,7 @@ apiVersion: skaffold/v4beta9
 kind: Config
 metadata:
   name: zoo-mssql
-build:
-  tagPolicy:
-    envTemplate:
-      template: "latest"
-  artifacts:
-    - image: registry.jetbrains.team/p/datagrip/containers/mssql-custom-14
-
-      context: ./Docker/Microsoft
-      docker:
-        dockerfile: "Ms-14.dockerfile"
-    - image: registry.jetbrains.team/p/datagrip/containers/mssql-custom-15
-
-      context: ./Docker/Microsoft
-      docker:
-        dockerfile: "Ms-15.dockerfile"
-    - image: registry.jetbrains.team/p/datagrip/containers/mssql-custom-16
-
-      context: ./Docker/Microsoft
-      docker:
-        dockerfile: "Ms-16.dockerfile"
-  local:
-    useDockerCLI: false
-    useBuildkit: true
+build: {}
 deploy:
   helm:
     releases:
@@ -35,6 +13,10 @@ deploy:
         upgradeOnChange: true
       - name: zoo-mssql
         chartPath: ./mssql
+        version: 0.1.0
+        upgradeOnChange: true
+      - name: zoo-oracle
+        chartPath: ./oracle
         version: 0.1.0
         upgradeOnChange: true
 
