@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oracle-scripts
+  labels:
+    io.kompose.service: oracle
+  {{- include "oracle.labels" . | nindent 4 }}
+data:
+  {{- range $path, $bytes := .Files.Glob "scripts/*" }}
+  {{ $path | base }}: |
+{{ $bytes | toString | indent 4 }}
+  {{- end }}
