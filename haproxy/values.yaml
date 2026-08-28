@@ -27,6 +27,27 @@ servicePorts:
   - name: "ms16"
     port: 25160
     targetPort: 14336
+  - name: "ora11s"
+    port: 25110
+    targetPort: 15210
+  - name: "ora12s"
+    port: 25111
+    targetPort: 15211
+  - name: "ora12m"
+    port: 25112
+    targetPort: 15212
+  - name: "ora19s"
+    port: 25113
+    targetPort: 15213
+  - name: "ora19m"
+    port: 25114
+    targetPort: 15214
+  - name: "ora21m"
+    port: 25115
+    targetPort: 15215
+  - name: "ora23m"
+    port: 25116
+    targetPort: 15216
 
 replicas: 1
 type: LoadBalancer
@@ -59,6 +80,55 @@ tcpServices:
         - name: ms16
           host: ms16
           port: 1433
+  - name: ora11s
+    frontendPort: 15210
+    backend:
+      servers:
+        - name: ora11s
+          host: ora11s
+          port: 1521
+  - name: ora12s
+    frontendPort: 15211
+    backend:
+      servers:
+        - name: ora12s
+          host: ora12s
+          port: 1521
+  - name: ora12m
+    frontendPort: 15212
+    backend:
+      servers:
+        - name: ora12m
+          host: ora12m
+          port: 1521
+  - name: ora19s
+    frontendPort: 15213
+    backend:
+      servers:
+        - name: ora19s
+          host: ora19s
+          port: 1521
+  - name: ora19m
+    frontendPort: 15214
+    backend:
+      servers:
+        - name: ora19m
+          host: ora19m
+          port: 1521
+  - name: ora21m
+    frontendPort: 15215
+    backend:
+      servers:
+        - name: ora21s
+          host: ora21s
+          port: 1521
+  - name: ora23m
+    frontendPort: 15216
+    backend:
+      servers:
+        - name: ora23s
+          host: ora23s
+          port: 1521
 
 imagePullSecrets:
   - name: space-registry-datagrip
