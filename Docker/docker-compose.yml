@@ -5,9 +5,7 @@ services:
     ms14:
         container_name: ms14
         hostname: ms14
-        build:
-            context: Microsoft
-            dockerfile: Ms-14.dockerfile
+        image: registry.jetbrains.team/p/datagrip/containers/mssql-custom:14
 #        privileged: true
         ports:
             - "25140:1433"
@@ -30,9 +28,7 @@ services:
     ms15:
         container_name: ms15
         hostname: ms15
-        build:
-            context: Microsoft
-            dockerfile: Ms-15.dockerfile
+        image: registry.jetbrains.team/p/datagrip/containers/mssql-custom:15
         #privileged: true
         ports:
             - "25150:1433"
@@ -55,9 +51,7 @@ services:
     ms16:
         container_name: ms16
         hostname: ms16
-        build:
-            context: Microsoft
-            dockerfile: Ms-16.dockerfile
+        image: registry.jetbrains.team/p/datagrip/containers/mssql-custom:16
         # privileged: true
         ports:
             - "25160:1433"
@@ -79,9 +73,9 @@ services:
 
 # ----------- Oracle ---------------
 
-    oracle-11.2-single:
-        container_name: oracle-11.2-single
-        hostname: oracle-11.2-single
+    oracle-11.2-noncdb:
+        container_name: oracle-11.2-noncdb
+        hostname: oracle-11.2-noncdb
         image: registry.jetbrains.team/p/datagrip/containers/oracle:11.2.0.2-xe-orig
         ports:
             - "25110:1521"
@@ -97,13 +91,10 @@ services:
             start_period: 5m
 
 
-    oracle-12.2-single:
-        container_name: oracle-12.2-single
-        build:
-            context: Oracle
-            dockerfile: Ora-12s.dockerfile
-            no_cache: true
-        hostname: oracle-12.2-single
+    oracle-12.2-noncdb:
+        container_name: oracle-12.2-noncdb
+        image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:12.2.0.2-noncdb
+        hostname: oracle-12.2-noncdb
         env_file: .oracle.env
         ports:
             - "25111:1521"
@@ -111,7 +102,7 @@ services:
         #volumes:
         #    - "../oracle/scripts:/opt/oracle/scripts/setup"
         healthcheck:
-            test: ["CMD-SHELL", "sqlplus -L sys/${ORACLE_PWD}@//localhost:1521/${ORACLE_SID} as sysdba <<< \"select 1 from dual;\" || exit 1"]
+            test: ["CMD-SHELL", "sqlplus -L sys/$$ORACLE_PWD@//localhost:1521/$$ORACLE_SID as sysdba <<< \"select 1 from dual;\" || exit 1"]
             interval: 30s
             timeout: 10s
             retries: 10
@@ -136,13 +127,10 @@ services:
             start_period: 5m
 
 
-    oracle-19.3-single:
-        build:
-          context: Oracle
-          dockerfile: Ora-19s.dockerfile
-          no_cache: true
-        hostname: oracle-19.3-single
-        container_name: oracle_19.3_single
+    oracle-19.3-noncdb:
+        image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:19.3-noncdb
+        hostname: oracle-19.3-noncdb
+        container_name: oracle_19.3_noncdb
         env_file: .oracle.env
         ports:
             - "25113:1521"
@@ -150,7 +138,7 @@ services:
         #volumes:
         #    - "../oracle/scripts:/opt/oracle/scripts/setup"
         healthcheck:
-            test: ["CMD-SHELL", "sqlplus -L sys/${ORACLE_PWD}@//localhost:1521/${ORACLE_SID} as sysdba <<< 'select 1 from dual;' || exit 1"]
+            test: ["CMD-SHELL", "sqlplus -L sys/$$ORACLE_PWD@//localhost:1521/$$ORACLE_SID as sysdba <<< 'select 1 from dual;' || exit 1"]
             interval: 30s
             timeout: 10s
             retries: 10
@@ -158,7 +146,7 @@ services:
 
 
     oracle-19.3-multi:
-        image: registry.jetbrains.team/p/datagrip/containers/oracle:19.3-e-orig
+        image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:19.3-multi
         hostname: oracle-19.3-multi
         container_name: oracle-19.3-multi
         env_file: .oracle.env
@@ -176,7 +164,7 @@ services:
 
 
     oracle-21.3-multi:
-        image: registry.jetbrains.team/p/datagrip/containers/oracle:21.3-xe-orig
+        image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:21.3-multi
         hostname: oracle-21.3-multi
         container_name: oracle-21.3-multi
         env_file: .oracle.env
@@ -194,7 +182,7 @@ services:
 
 
     oracle-23.26-multi:
-        image: registry.jetbrains.team/p/datagrip/containers/oracle:23.26.2.0-free-orig
+        image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:23.26-multi
         hostname: oracle-23.26-multi
         container_name: oracle_23.26_multi
         env_file: .oracle.env

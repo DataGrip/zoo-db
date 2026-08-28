@@ -13,9 +13,16 @@ RUN sed -i \
       -e '/EXEC DBMS_XDB_CONFIG.SETGLOBALPORTENABLED/d' \
       /opt/oracle/createDB.sh
 
+RUN usermod -u 1000 oracle
+RUN chown -R oracle:1000 /opt/oracle
+RUN chmod -R 771 /opt/oracle/scripts/setup
+
+
 USER oracle
 
 ENV ORACLE_SID=ORCL \
     ORACLE_CHARACTERSET=AL32UTF8
 
 EXPOSE 1521 5500
+
+WORKDIR /opt/oracle/scripts/setup
