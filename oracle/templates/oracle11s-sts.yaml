@@ -34,6 +34,7 @@ spec:
       {{- include "oracle.selectorLabels" . | nindent 8 }}
     spec:
       securityContext:
+        runAsUser: 1000
         fsGroup: 1000
       setHostnameAsFQDN: true
       imagePullSecrets:
@@ -41,15 +42,6 @@ spec:
       containers:
       - name: oracle11s
         imagePullPolicy: {{ .Values.pullPolicy }}
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
-        env:
-        - name: ORACLE_PWD
-          valueFrom:
-            secretKeyRef:
-              key: password
-              name: {{ include "oracle.fullname" . }}-sys-password
         image: {{ .Values.oracle11s.image.repository }}:{{ .Values.oracle11s.image.tag | default
           .Chart.AppVersion }}
         ports:

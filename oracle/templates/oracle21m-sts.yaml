@@ -34,16 +34,14 @@ spec:
       {{- include "oracle.selectorLabels" . | nindent 8 }}
     spec:
       securityContext:
-        fsGroup: 1000
+        runAsUser: 54321
+        fsGroup: 54321
       setHostnameAsFQDN: true
       imagePullSecrets:
       {{- toYaml .Values.imagePullSecrets | nindent 8 }}
       containers:
       - name: oracle21m
         imagePullPolicy: {{ .Values.pullPolicy }}
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
         env:
         - name: ORACLE_PWD
           valueFrom:
