@@ -133,10 +133,10 @@ To check whether a deployment is successful, go to **TeamCity-IT**:
 ### HELM charts:
 
 `mssql` - For MS SQL databases. All scripts that must be started when a container is UP are in `./mssql/scripts` directory. 
-**Update** `./mssql/scripts/scripts.json` if you add new scripts or remove ones.  
+**Update** `./mssql/scripts/scripts.json` if you add new scripts to `./DB/Microsoft/Zoo-25/` directory or remove ones.  
 
 `oracle` - For Oracle databases. All scripts that must be started when a container is UP are in `./oracle/scripts` directory. 
-**Update** `./oracle/scripts/scripts.json` if you add new scripts or remove ones.  
+**Update** `./oracle/scripts/scripts.json` if you add new scripts to `./DB/Oracle/Zoo-25/` directory or remove ones.  
 
 `haproxy` - For Load Balancer deployment.  
 
