@@ -1,13 +1,14 @@
 oracle11s:
   image:
-    repository: registry.jetbrains.team/p/datagrip/containers/oracle
-    tag: 11.2.0.2-xe-orig
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
+    tag: 11.2.0.2-noncdb
   resources:
     limits:
-      memory: "10Gi"
-      ephemeral-storage: "3Gi"
+      cpu: 1
+      memory: "2Gi"
+      ephemeral-storage: "5Gi"
     requests:
-      cpu: "200m"
+      cpu: "100m"
       memory: "500Mi"
       ephemeral-storage: "1Gi"
 oracle12s:
@@ -16,21 +17,24 @@ oracle12s:
     tag: 12.2.0.2-noncdb
   resources:
     limits:
-      memory: "10Gi"
-      ephemeral-storage: "3Gi"
+      cpu: 1
+      memory: "5Gi"
+      ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
       memory: "500Mi"
       ephemeral-storage: "1Gi"
 oracle12m:
   image:
-    repository: registry.jetbrains.team/p/datagrip/containers/oracle
-    tag: 12.2.0.1-e-orig
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
+    tag: 12.2.0.2-multi
   resources:
     limits:
-      memory: "4Gi"
-      ephemeral-storage: "2Gi"
+      cpu: 2
+      memory: "5Gi"
+      ephemeral-storage: "5Gi"
     requests:
+      cpu: "200m"
       memory: "500Mi"
       ephemeral-storage: "1Gi"
 oracle19s:
@@ -39,44 +43,48 @@ oracle19s:
     tag: 19.3-noncdb
   resources:
     limits:
-      memory: "10Gi"
-      ephemeral-storage: "3Gi"
+      cpu: 1
+      memory: "7Gi"
+      ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
       memory: "500Mi"
       ephemeral-storage: "1Gi"
 oracle19m:
   image:
-    repository: registry.jetbrains.team/p/datagrip/containers/oracle
-    tag: 19.3-e-orig
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
+    tag: 19.3-multi
   resources:
     limits:
-      memory: "10Gi"
-      ephemeral-storage: "3Gi"
+      cpu: 1
+      memory: "6Gi"
+      ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
       memory: "500Mi"
       ephemeral-storage: "1Gi"
 oracle21m:
   image:
-    repository: registry.jetbrains.team/p/datagrip/containers/oracle
-    tag: 21.3-xe-orig
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
+    tag: 21.3-multi
   resources:
     limits:
-      memory: "10Gi"
-      ephemeral-storage: "3Gi"
+      cpu: 1
+      memory: "4Gi"
+      ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
       memory: "500Mi"
       ephemeral-storage: "1Gi"
 oracle23m:
   image:
-    repository: registry.jetbrains.team/p/datagrip/containers/oracle
-    tag: 23.26.2.0-free-orig
+    repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
+    tag: 23.26-multi
   resources:
     limits:
-      memory: "10Gi"
-      ephemeral-storage: "3Gi"
+      cpu: 1
+      memory: "4Gi"
+      ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
       memory: "500Mi"
@@ -89,7 +97,7 @@ pullPolicy: Always
 # Directory the setup scripts are mounted into
 scriptsMountPath:
   # 11.2.0.2
-  oracle11s: "/u01/app/oracle/scripts/setup"
+  oracle11s: "/scripts"
   # 12.2 / 19.3 / 21.3 / 23.26
   default: "/opt/oracle/scripts/setup"
 
