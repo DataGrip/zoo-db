@@ -42,9 +42,6 @@ spec:
       containers:
       - name: oracle23m
         imagePullPolicy: {{ .Values.pullPolicy }}
-        securityContext:
-            runAsNonRoot: true
-            runAsUser: 1000
         env:
         - name: ORACLE_PWD
           valueFrom:
