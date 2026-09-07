@@ -1,10 +1,10 @@
 FROM registry.jetbrains.team/p/datagrip/containers/oracle:19.3-e-orig
 USER root
 
-RUN usermod -u 1000 oracle
-RUN chown -R oracle:1000 /opt/oracle
-RUN chmod -R 771 /opt/oracle/scripts/setup
+RUN sed -i -e 's/^totalMemory=.*/totalMemory=4096/' /opt/oracle/dbca.rsp.tmpl
+
 
 USER oracle
 
-WORKDIR /opt/oracle/scripts/setup
+ENV ORACLE_BASE=/opt/oracle \
+    ORACLE_CHARACTERSET=AL32UTF8

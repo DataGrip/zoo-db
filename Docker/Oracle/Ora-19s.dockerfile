@@ -7,20 +7,17 @@ RUN sed -i \
       -e 's/^numberOfPDBs=.*/numberOfPDBs=0/' \
       -e 's/^pdbName=/#pdbName=/' \
       -e 's/^pdbAdminPassword=/#pdbAdminPassword=/' \
+      -e 's/^totalMemory=.*/totalMemory=4096/' \
       /opt/oracle/dbca.rsp.tmpl \
  && sed -i \
       -e '/ALTER PLUGGABLE DATABASE .*SAVE STATE;/d' \
       -e '/EXEC DBMS_XDB_CONFIG.SETGLOBALPORTENABLED/d' \
       /opt/oracle/createDB.sh
 
-RUN usermod -u 1000 oracle
-RUN chown -R oracle:1000 /opt/oracle
-RUN chmod -R 771 /opt/oracle/scripts/setup
-
-
 USER oracle
 
-ENV ORACLE_SID=ORCL \
+ENV ORACLE_BASE=/opt/oracle \
+    ORACLE_SID=ORCL \
     ORACLE_CHARACTERSET=AL32UTF8
 
 EXPOSE 1521 5500

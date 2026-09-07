@@ -76,19 +76,18 @@ services:
     oracle-11.2-noncdb:
         container_name: oracle-11.2-noncdb
         hostname: oracle-11.2-noncdb
-        image: registry.jetbrains.team/p/datagrip/containers/oracle:11.2.0.2-xe-orig
+        image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:11.2.0.2-noncdb
         ports:
             - "25110:1521"
         shm_size: 1g
-        env_file: .oracle.env
-        #volumes:
-        #    - "../oracle/scripts:/u01/app/oracle/scripts/setup"
+        volumes:
+            - "../oracle/scripts:/scripts"
         healthcheck:
-            test: ["CMD-SHELL", "/u01/app/oracle/checkDBStatus.sh"]
+            test: ["CMD", "/u01/app/oracle/checkDBStatus.sh"]
             interval: 30s
             timeout: 10s
             retries: 10
-            start_period: 5m
+            start_period: 10m
 
 
     oracle-12.2-noncdb:
@@ -99,8 +98,8 @@ services:
         ports:
             - "25111:1521"
         shm_size: 1g
-        #volumes:
-        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        volumes:
+            - "../oracle/scripts:/opt/oracle/scripts/setup"
         healthcheck:
             test: ["CMD-SHELL", "sqlplus -L sys/$$ORACLE_PWD@//localhost:1521/$$ORACLE_SID as sysdba <<< \"select 1 from dual;\" || exit 1"]
             interval: 30s
@@ -110,15 +109,15 @@ services:
 
 
     oracle-12.2-multi:
-        image: registry.jetbrains.team/p/datagrip/containers/oracle:12.2.0.1-e-orig
+        image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:12.2.0.2-multi
         hostname: oracle-12.2-multi
         container_name: oracle-12.2-multi
         env_file: .oracle.env
         ports:
             - "25112:1521"
         shm_size: 1g
-        #volumes:
-        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        volumes:
+            - "../oracle/scripts:/opt/oracle/scripts/setup"
         healthcheck:
             test: ["CMD-SHELL", "echo 'show pdbs' | sqlplus -S -L / as sysdba | grep -q 'READ WRITE' || exit 1"]
             interval: 30s
@@ -130,13 +129,13 @@ services:
     oracle-19.3-noncdb:
         image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:19.3-noncdb
         hostname: oracle-19.3-noncdb
-        container_name: oracle_19.3_noncdb
+        container_name: oracle-19.3-noncdb
         env_file: .oracle.env
         ports:
             - "25113:1521"
         shm_size: 1g
-        #volumes:
-        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        volumes:
+            - "../oracle/scripts:/opt/oracle/scripts/setup"
         healthcheck:
             test: ["CMD-SHELL", "sqlplus -L sys/$$ORACLE_PWD@//localhost:1521/$$ORACLE_SID as sysdba <<< 'select 1 from dual;' || exit 1"]
             interval: 30s
@@ -153,8 +152,8 @@ services:
         ports:
             - "25114:1521"
         shm_size: 1g
-        #volumes:
-        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        volumes:
+            - "../oracle/scripts:/opt/oracle/scripts/setup"
         healthcheck:
             test: grep "Database creation complete" /opt/oracle/cfgtoollogs/dbca/ORCLCDB/ORCLCDB.log || exit 1
             interval: 30s
@@ -171,8 +170,8 @@ services:
         ports:
             - "25115:1521"
         shm_size: 1g
-        #volumes:
-        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        volumes:
+            - "../oracle/scripts:/opt/oracle/scripts/setup"
         healthcheck:
             test: grep "Database creation complete" /opt/oracle/cfgtoollogs/dbca/XE/XE.log || exit 1
             interval: 30s
@@ -184,13 +183,13 @@ services:
     oracle-23.26-multi:
         image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:23.26-multi
         hostname: oracle-23.26-multi
-        container_name: oracle_23.26_multi
+        container_name: oracle-23.26-multi
         env_file: .oracle.env
         ports:
             - "25116:1521"
         shm_size: 1g
-        #volumes:
-        #    - "../oracle/scripts:/opt/oracle/scripts/setup"
+        volumes:
+            - "../oracle/scripts:/opt/oracle/scripts/setup"
         healthcheck:
             test: grep "Database creation complete" /opt/oracle/cfgtoollogs/dbca/FREE/FREE.log || exit 1
             interval: 30s
