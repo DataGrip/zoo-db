@@ -10,12 +10,18 @@ haproxy:
   annotations:
     external-dns.alpha.kubernetes.io/hostname: datagripdb.labs.jb.gg
     service.beta.kubernetes.io/aws-load-balancer-type: external
-    service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "node-type=shared"
+    service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "node-type=shared-non-spot"
     service.beta.kubernetes.io/aws-load-balancer-name: k8s-datagripdb-nlb-1
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
     service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: deregistration_delay.connection_termination.enabled=true,preserve_client_ip.enabled=false
     service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
     service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: "2"  # min=2
+
+imagePullSecrets:
+  - name: space-registry-datagrip
+
+nodeSelector:
+  node-type: shared-non-spot
 
 servicePorts:
   - name: "ms14"
@@ -130,5 +136,3 @@ tcpServices:
           host: oracle23m
           port: 1521
 
-imagePullSecrets:
-  - name: space-registry-datagrip
