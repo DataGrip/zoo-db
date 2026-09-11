@@ -1,4 +1,4 @@
-FROM oracle:12.2.0.1-neworiginal
+FROM registry.jetbrains.team/p/datagrip/containers/oracle:12.2.0.1-e-orig
 USER root
 
 USER oracle
