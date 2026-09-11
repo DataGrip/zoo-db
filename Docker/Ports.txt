@@ -6,10 +6,10 @@ MS SQL:
     25160 -> 16.0 (2022)
 
 Oracle:
-    25110 -> 11.2  (single)
-    25111 -> 12.2  (single)
+    25110 -> 11.2  (classic)
+    25111 -> 12.2  (classic)
     25112 -> 12.2  (multitenant)
-    25113 -> 19.3  (single)
+    25113 -> 19.3  (classic)
     25114 -> 19.3  (multitenant)
     25115 -> 21.3  (multitenant)
     25116 -> 23.26 (multitenant)

@@ -23,9 +23,9 @@ RUN mkdir -p /etc/profile.d /etc/default /var/lock/subsys \
 RUN mkdir -p /scripts && chown oracle:dba /scripts
 ENV SETUP_SCRIPTS_DIR=/scripts
 
-ADD ./entrypoint-11s.sh /
-ADD --chown=oracle:dba ./checkDBStatus-11s.sh /u01/app/oracle/checkDBStatus.sh
-RUN chmod 755 /entrypoint-11s.sh /u01/app/oracle/checkDBStatus.sh
+ADD ./entrypoint-11c.sh /
+ADD --chown=oracle:dba ./checkDBStatus-11c.sh /u01/app/oracle/checkDBStatus.sh
+RUN chmod 755 /entrypoint-11c.sh /u01/app/oracle/checkDBStatus.sh
 
 USER oracle
 
@@ -34,4 +34,4 @@ EXPOSE 1521 8080
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10m --retries=5 \
   CMD /u01/app/oracle/checkDBStatus.sh
 
-ENTRYPOINT ["/entrypoint-11s.sh"]
+ENTRYPOINT ["/entrypoint-11c.sh"]

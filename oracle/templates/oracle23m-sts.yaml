@@ -1,3 +1,5 @@
+{{ include "oracle.pvc" (dict "root" . "version" "23m") }}
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -39,6 +41,8 @@ spec:
       setHostnameAsFQDN: true
       imagePullSecrets:
       {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      initContainers:
+      {{- include "oracle.pvcInitContainer" (dict "root" . "version" "23m") | nindent 6 }}
       containers:
       - name: oracle23m
         imagePullPolicy: {{ .Values.pullPolicy }}
@@ -57,8 +61,10 @@ spec:
         volumeMounts:
         - mountPath: {{ .Values.scriptsMountPath.default }}
           name: oracle-scripts
+        {{- include "oracle.pvcVolumeMount" (dict "root" . "version" "23m") | nindent 8 }}
       hostname: oracle23m
       volumes:
       - configMap:
             name: oracle-scripts
         name: oracle-scripts
+      {{- include "oracle.pvcVolume" (dict "root" . "version" "23m") | nindent 6 }}

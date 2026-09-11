@@ -1,4 +1,4 @@
-oracle11s:
+oracle11c:
   image:
     repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
     tag: 11.2.0.2-noncdb
@@ -11,7 +11,7 @@ oracle11s:
       cpu: "100m"
       memory: "500Mi"
       ephemeral-storage: "1Gi"
-oracle12s:
+oracle12c:
   image:
     repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
     tag: 12.2.0.2-noncdb
@@ -37,7 +37,7 @@ oracle12m:
       cpu: "200m"
       memory: "500Mi"
       ephemeral-storage: "1Gi"
-oracle19s:
+oracle19c:
   image:
     repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
     tag: 19.3-noncdb
@@ -89,15 +89,23 @@ oracle23m:
       cpu: "200m"
       memory: "500Mi"
       ephemeral-storage: "1Gi"
+  persistence:
+    enabled: true
+    size: 10Gi
+    storageClass: ""
+    mountPath: /opt/oracle/oradata
 
 replicas: 1
+
+# Image for init container
+cleanupImage: registry.jetbrains.team/p/datagrip/containers/busybox:1.36
 
 pullPolicy: Always
 
 # Directory the setup scripts are mounted into
 scriptsMountPath:
-  # 11.2.0.2
-  oracle11s: "/scripts"
+  # 11.2
+  oracle11c: "/scripts"
   # 12.2 / 19.3 / 21.3 / 23.26
   default: "/opt/oracle/scripts/setup"
 
