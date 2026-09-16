@@ -11,14 +11,6 @@ whenever sqlerror exit sql.sqlcode
 @@init-schema-c.sql
 
 
--- This script is needed to reduce introspection time
-begin
-    sys.dbms_stats.gather_dictionary_stats;
-    sys.dbms_stats.gather_fixed_objects_stats;
-end;
-/
-
-
 -- The empty schema is now created.
 -- In order to create objects inside the created schema,
 -- we should log in as the owner of the schema.
