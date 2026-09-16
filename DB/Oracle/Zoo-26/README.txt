@@ -19,11 +19,12 @@ we're going to use and extend this schema next several yeras.
 
 Several users which should be used in tests. The introspector should
 log in as one of these several users and introspect the Zoo schema.
-The user names:
-    — Tourist_A — regular permissions
-    — Tourist_C — has the role "SELECT_CATALOG_ROLE"
-    — Tourist_D — has the permission "SELECT ANY DICTIONARY"
-    — Tourist_S — has both of the two previous (deprecated)
+The usernames depend on the Oracle installation type, because Oracle
+requires adding the strange prefix 'C##' for their "common" user accounts.
+    — [C##_]Tourist_A — has regular permissions
+    — [C##_]Tourist_C — has the role "SELECT_CATALOG_ROLE"
+    — [C##_]Tourist_D — has the permission "SELECT ANY DICTIONARY"
+    — [C##_]Tourist_S — has both of the two previous (deprecated)
 
 
 Naming Convention
@@ -51,6 +52,6 @@ Files
 
 There is one startup file for each version and type of Oracle installation,
 it's named 'create-*.sql'. This script should be performed being logged in
-as SYS with SYSDBA option. Only this file should contain commands to
+as SYS with the SYSDBA option. Only this file should contain commands to
 connect or switch users, other script files must not switch the current user.
 

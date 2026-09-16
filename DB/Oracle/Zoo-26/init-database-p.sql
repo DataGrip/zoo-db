@@ -13,7 +13,7 @@ grant create cluster,
     create dimension,
     create database link,
     create synonym
-    to Zoo_Development
+    to C##_Development
 /
 
 

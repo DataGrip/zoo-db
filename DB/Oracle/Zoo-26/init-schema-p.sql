@@ -13,7 +13,7 @@ create user Zoo_26_P identified by zoo -- this password should be changed on the
 grant connect, resource, debug connect session, debug any procedure
     to Zoo_26_P
 /
-grant Zoo_Development
+grant C##_Development
     to Zoo_26_P
 /
 

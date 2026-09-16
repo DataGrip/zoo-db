@@ -1,9 +1,9 @@
 -- Prepares the databases for DataGrip Static Tests.
 -- Run this script being logged in as SYS in the CDB database with the role SYSDBA.
--- We must be in the GOD mode.
+-- The role is common, named with the C## prefix, so no GOD mode is needed here.
 
 
-create role Zoo_Development
+create role C##_Development
     container = all
 /
 
@@ -20,7 +20,7 @@ grant create cluster,
     create dimension,
     create database link,
     create synonym
-    to Zoo_Development
+    to C##_Development
     container = all
 /
 

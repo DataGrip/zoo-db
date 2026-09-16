@@ -5,26 +5,23 @@ whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
 
 
--- Entering the GOD mode
-alter session set "_ORACLE_SCRIPT" = true
-/
-
-
--- Init the common roles and accounts
+-- Init the common roles and accounts.
+-- All of them are named with the C## prefix, so they are created in a regular
+-- way: CONTAINER = ALL makes Oracle propagate them into every PDB.
+-- The GOD mode must NOT be used here: under "_ORACLE_SCRIPT" the common DDL
+-- is not propagated to the PDBs at all, and the objects get flagged
+-- as ORACLE_MAINTAINED.
 
 @@init-database-m.sql
 
 @@init-tourismus-m.sql
 
 
--- Init the CDB schema
+-- Init the CDB schema.
+-- Unlike the common roles and accounts above, Zoo_26_M still needs
+-- the GOD mode -- this script turns it on and off by itself.
 
 @@init-schema-m.sql
-
-
--- Now leaving the GOD mode
-alter session set "_ORACLE_SCRIPT" = false
-/
 
 
 
