@@ -4,9 +4,9 @@
 whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
 
-@@init-database.sql
+@@init-database-c.sql
 
-@@init-schema.sql
+@@init-schema-c.sql
 
 
 -- The empty schema is now created.
