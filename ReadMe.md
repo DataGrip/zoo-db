@@ -99,9 +99,9 @@ Use the following connection strings for testing:
 
 `jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25110:XE`        for Oracle 11.2  non-CDB  
 `jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25111:ORCL`      for Oracle 12.2  non-CDB  
-`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25112/ORCLCDB`   for Oracle 12.2  multitenant  
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25112:ORCLCDB`   for Oracle 12.2  multitenant  
 `jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25113:ORCL`      for Oracle 19.3  non-CDB   
-`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25114/ORCLCDB`   for Oracle 19.3  multitenant  
+`jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25114:ORCLCDB`   for Oracle 19.3  multitenant  
 `jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25115:XE`        for Oracle 21.3  multitenant
 `jdbc:oracle:thin:Tourist/<PASSWORD>@datagripdb.labs.jb.gg:25116:FREE`      for Oracle 23.26 multitenant
 
@@ -114,21 +114,27 @@ Use the following connection strings for creating databases (not for testing):
 
 `jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25110:XE`        for Oracle 11.2  non-CDB  
 `jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25111:ORCL`      for Oracle 12.2  non-CDB  
-`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25112/ORCLCDB`   for Oracle 12.2  multitenant  
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25112:ORCLCDB`   for Oracle 12.2  multitenant  
 `jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25113:ORCL`      for Oracle 19.3  non-CDB   
-`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25114/ORCLCDB`   for Oracle 19.3  multitenant  
-`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25115:XE`        for Oracle 21.3  multitenant
-`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25116:FREE`      for Oracle 23.26 multitenant
-  
-How to deploy to Kubernetes manually
-------------------------------------
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25114:ORCLCDB`   for Oracle 19.3  multitenant  
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25115:XE`        for Oracle 21.3  multitenant  
+`jdbc:oracle:thin:SYS/<PASSWORD>@datagripdb.labs.jb.gg:25116:FREE`      for Oracle 23.26 multitenant  
 
-All changes are **automatically** merged into containers after they are pushed to the `master` branch.  
+  
+How to deploy to Kubernetes  
+----------------------------  
+
+While deploying, the image is pulled from the JetBrains registry and scripts are executed from
+the mounted script directory. To run any environment locally, use the `Docker/docker-compose.yml` file.   
+The images are built from the `Docker/.../XX.dockerfile` files. If you need to change any image, use the corresponding
+Dockerfile, rebuild the image with the **same tag** and push it to the JetBrains registry. 	 
+
+All changes in the repository are **automatically** merged into containers after they are pushed to the `master` branch.  
+After changes arrive to the `master` branch, the deployment job runs in TeamCity and the container runs in its own pod. To check whether a deployment is successful, go to **TeamCity-IT**:    
+[deploys](https://teamcity-it.intellij.net/buildConfiguration/KubernetesController_EksIrelandEuWest1_datagrip_services_teamcity_it_generated_project_DeployZooDb#all-projects)
+
 Our default namespace in the K8s cluster is `datagrip-services`.  
 
-To check whether a deployment is successful, go to **TeamCity-IT**:    
-[deploys](https://teamcity-it.intellij.net/buildConfiguration/KubernetesController_EksIrelandEuWest1_datagrip_services_teamcity_it_generated_project_DeployZooDb#all-projects)
-  
   
 ### HELM charts:
 

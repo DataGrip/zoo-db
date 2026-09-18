@@ -1,4 +1,6 @@
 FROM registry.jetbrains.team/p/datagrip/containers/oracle:12.2.0.1-e-orig
+# https://github.com/oracle/docker-images/blob/main/OracleDatabase/SingleInstance/dockerfiles/12.2.0.1/Dockerfile
+
 USER root
 
 RUN sed -i \

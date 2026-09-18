@@ -1,4 +1,5 @@
-FROM registry.jetbrains.team/p/datagrip/containers/oracle:11.2.1-modified
+FROM registry.jetbrains.team/p/datagrip/containers/oracle:11.2
+# https://github.com/DataGrip/docker-env-oracle/blob/master/11.2/Dockerfile
 
 USER root
 

@@ -1,4 +1,5 @@
 FROM registry.jetbrains.team/p/datagrip/containers/mssql-server-linux:2019orig
+# https://mcr.microsoft.com/en-us/artifact/mar/mssql/server/tag/2019-CU32-GDR11-ubuntu-20.04
 
 LABEL author=DataGrip
 USER root
@@ -12,6 +13,8 @@ RUN apt-get update && apt-get install -y \
     jq
 
 RUN usermod -u 1000 mssql
+
+# Directory for database scripts
 RUN mkdir /scripts
 RUN chown -R 1000:1000 /scripts
 RUN chmod -R 771 /scripts

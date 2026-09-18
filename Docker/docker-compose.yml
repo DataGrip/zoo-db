@@ -6,7 +6,7 @@ services:
         container_name: ms14
         hostname: ms14
         image: registry.jetbrains.team/p/datagrip/containers/mssql-custom:14
-#        privileged: true
+        # Ms-14.dockerfile
         ports:
             - "25140:1433"
         volumes:
@@ -29,7 +29,7 @@ services:
         container_name: ms15
         hostname: ms15
         image: registry.jetbrains.team/p/datagrip/containers/mssql-custom:15
-        #privileged: true
+        # Ms-15.dockerfile
         ports:
             - "25150:1433"
         volumes:
@@ -52,7 +52,7 @@ services:
         container_name: ms16
         hostname: ms16
         image: registry.jetbrains.team/p/datagrip/containers/mssql-custom:16
-        # privileged: true
+        # Ms-16.dockerfile
         ports:
             - "25160:1433"
         volumes:
@@ -77,6 +77,7 @@ services:
         container_name: oracle-11.2-noncdb
         hostname: oracle-11.2-noncdb
         image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:11.2.0.2-noncdb
+        # Ora-11с.dockerfile
         ports:
             - "25110:1521"
         shm_size: 1g
@@ -93,6 +94,7 @@ services:
     oracle-12.2-noncdb:
         container_name: oracle-12.2-noncdb
         image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:12.2.0.2-noncdb
+        # Ora-12с.dockerfile
         hostname: oracle-12.2-noncdb
         env_file: .oracle.env
         ports:
@@ -110,6 +112,7 @@ services:
 
     oracle-12.2-multi:
         image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:12.2.0.2-multi
+        # Ora-12m.dockerfile
         hostname: oracle-12.2-multi
         container_name: oracle-12.2-multi
         env_file: .oracle.env
@@ -128,6 +131,7 @@ services:
 
     oracle-19.3-noncdb:
         image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:19.3-noncdb
+        # Ora-19с.dockerfile
         hostname: oracle-19.3-noncdb
         container_name: oracle-19.3-noncdb
         env_file: .oracle.env
@@ -146,6 +150,7 @@ services:
 
     oracle-19.3-multi:
         image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:19.3-multi
+        # Ora-19m.dockerfile
         hostname: oracle-19.3-multi
         container_name: oracle-19.3-multi
         env_file: .oracle.env
@@ -164,6 +169,7 @@ services:
 
     oracle-21.3-multi:
         image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:21.3-multi
+        # Ora-21m.dockerfile
         hostname: oracle-21.3-multi
         container_name: oracle-21.3-multi
         env_file: .oracle.env
@@ -182,6 +188,7 @@ services:
 
     oracle-23.26-multi:
         image: registry.jetbrains.team/p/datagrip/containers/oracle-custom:23.26-multi
+        # Ora-23m.dockerfile
         hostname: oracle-23.26-multi
         container_name: oracle-23.26-multi
         env_file: .oracle.env

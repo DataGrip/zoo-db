@@ -1,4 +1,6 @@
 FROM registry.jetbrains.team/p/datagrip/containers/oracle:23.26.2.0-free-orig
+# https://github.com/oracle/docker-images/blob/main/OracleDatabase/SingleInstance/dockerfiles/23.26.0/Containerfile.free
+
 USER root
 
 RUN sed -i -e 's/^totalMemory=.*/totalMemory=4096/' /opt/oracle/product/26ai/dbhomeFree/assistants/dbca/dbca.rsp
