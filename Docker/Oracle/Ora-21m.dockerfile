@@ -1,4 +1,5 @@
 FROM registry.jetbrains.team/p/datagrip/containers/oracle:21.3-xe-orig
+# https://github.com/oracle/docker-images/blob/main/OracleDatabase/SingleInstance/dockerfiles/21.3.0/Dockerfile.xe
 
 USER root
 

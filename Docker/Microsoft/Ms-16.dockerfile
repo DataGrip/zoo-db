@@ -1,5 +1,5 @@
 FROM registry.jetbrains.team/p/datagrip/containers/mssql-server-linux:2022orig
-
+# https://mcr.microsoft.com/en-us/artifact/mar/mssql/server/tag/2022-CU27-ubuntu-22.04
 LABEL author=DataGrip
 USER root
 
@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install -y \
 
 #RUN useradd -M -s /bin/bash -u 10001 -g 0 mssql
 RUN usermod -u 1000 mssql
+
+# Directory for database scripts
 RUN mkdir /scripts
 RUN chown -R 1000:1000 /scripts
 RUN chmod -R 771 /scripts

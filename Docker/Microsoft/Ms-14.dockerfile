@@ -1,4 +1,5 @@
 FROM registry.jetbrains.team/p/datagrip/containers/mssql-server-linux:2017orig
+# https://mcr.microsoft.com/en-us/artifact/mar/mssql/server/tag/2017-CU31-GDR18-ubuntu-18.04
 
 LABEL author=DataGrip
 USER root
@@ -11,8 +12,9 @@ RUN apt-get update && apt-get install -y \
     unixodbc-dev \
     jq
 
-#RUN useradd -M -s /bin/bash -u 10001 -g 0 mssql
 RUN useradd -M -s /bin/bash -u 1000 -g 0 mssql
+
+# Directory for database scripts
 RUN mkdir /scripts
 RUN chown -R 1000:1000 /scripts
 RUN chmod -R 771 /scripts

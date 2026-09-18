@@ -1,4 +1,5 @@
 FROM registry.jetbrains.team/p/datagrip/containers/oracle:19.3-e-orig
+# https://github.com/oracle/docker-images/blob/main/OracleDatabase/SingleInstance/dockerfiles/19.3.0/Dockerfile
 
 USER root
 
