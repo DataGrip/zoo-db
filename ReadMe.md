@@ -141,9 +141,15 @@ Our default namespace in the K8s cluster is `datagrip-services`.
 `mssql` - For MS SQL databases. All scripts that must be started when a container is UP are in `./mssql/scripts` directory. 
 **Update** `./mssql/scripts/scripts.json` if you add new scripts to `./DB/Microsoft/Zoo-25/` directory or remove ones.  
 
-`oracle` - For Oracle databases. All scripts that must be started when a container is UP are in `./oracle/scripts` directory. 
-**Update** `./oracle/scripts/scripts.json` if you add new scripts to `./DB/Oracle/Zoo-25/` directory or remove ones.  
+`oracle` - For Oracle databases. All scripts that must be started when a container is UP are in `./oracle/scripts` directory,
+which duplicates `./DB/Oracle/Zoo-26/` — keep the copy in sync when you add or remove scripts.
 
+The scripts execution order is spelled out by the `create-*.sql` scripts via the SQL\*Plus `@@` includes. 
+* `./oracle/scripts/run-<ver>.sql` — a one-line entry point per version, mounted as the **only** file in the
+  scanned directory (`/scripts` for 11.2, `/opt/oracle/scripts/setup` for the rest), so it is the only script
+  the runner starts.  
+* `./oracle/scripts/Zoo-26/` — the copy of the schema scripts from `./DB/Oracle/Zoo-26` directory, which are awoken by `run-<ver>.sql`  
+  
 `haproxy` - For Load Balancer deployment.  
 
 ### Skaffold

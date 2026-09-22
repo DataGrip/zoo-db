@@ -82,9 +82,11 @@ services:
             - "25110:1521"
         shm_size: 1g
         volumes:
-            - "../oracle/scripts:/scripts"
+            - "../oracle/scripts/run-11.sql:/scripts/run-11.sql:ro"
+            - "../oracle/scripts/Zoo-26:/Zoo-26:ro"
         healthcheck:
-            test: ["CMD", "/u01/app/oracle/checkDBStatus.sh"]
+            # Healthy only once the setup is over -- see oracle-12.2-noncdb.
+            test: ["CMD-SHELL", "[ -f /tmp/zoo-26-setup-complete.log ] && /u01/app/oracle/checkDBStatus.sh"]
             interval: 30s
             timeout: 10s
             retries: 10
@@ -101,13 +103,14 @@ services:
             - "25111:1521"
         shm_size: 1g
         volumes:
-            - "../oracle/scripts:/opt/oracle/scripts/setup"
+            - "../oracle/scripts/run-12c.sql:/opt/oracle/scripts/setup/run-12c.sql:ro"
+            - "../oracle/scripts/Zoo-26:/Zoo-26:ro"
         healthcheck:
-            test: ["CMD-SHELL", "sqlplus -L sys/$$ORACLE_PWD@//localhost:1521/$$ORACLE_SID as sysdba <<< \"select 1 from dual;\" || exit 1"]
+            test: ["CMD-SHELL", "[ -f /tmp/zoo-26-setup-complete.log ] && sqlplus -S -L Tourist_A/tour@//localhost:1521/$$ORACLE_SID <<< 'exit;'"]
             interval: 30s
             timeout: 10s
             retries: 10
-            start_period: 5m
+            start_period: 10m
 
 
     oracle-12.2-multi:
@@ -120,13 +123,15 @@ services:
             - "25112:1521"
         shm_size: 1g
         volumes:
-            - "../oracle/scripts:/opt/oracle/scripts/setup"
+            - "../oracle/scripts/run-12m.sql:/opt/oracle/scripts/setup/run-12m.sql:ro"
+            - "../oracle/scripts/Zoo-26:/Zoo-26:ro"
         healthcheck:
-            test: ["CMD-SHELL", "echo 'show pdbs' | sqlplus -S -L / as sysdba | grep -q 'READ WRITE' || exit 1"]
+            # Healthy only once the setup is over -- see oracle-12.2-noncdb.
+            test: ["CMD-SHELL", "[ -f /tmp/zoo-26-setup-complete.log ] && echo 'show pdbs' | sqlplus -S -L / as sysdba | grep -q 'READ WRITE' || exit 1"]
             interval: 30s
             timeout: 10s
             retries: 10
-            start_period: 5m
+            start_period: 10m
 
 
     oracle-19.3-noncdb:
@@ -139,7 +144,10 @@ services:
             - "25113:1521"
         shm_size: 1g
         volumes:
-            - "../oracle/scripts:/opt/oracle/scripts/setup"
+            # TODO no entry point yet: add create-19c.sql and mount run-19c.sql
+            #      into /opt/oracle/scripts/setup to make the runner pick it up
+            #- "../oracle/scripts/run-19c.sql:/opt/oracle/scripts/setup/run-19c.sql:ro"
+            - "../oracle/scripts/Zoo-26:/Zoo-26:ro"
         healthcheck:
             test: ["CMD-SHELL", "sqlplus -L sys/$$ORACLE_PWD@//localhost:1521/$$ORACLE_SID as sysdba <<< 'select 1 from dual;' || exit 1"]
             interval: 30s
@@ -158,7 +166,10 @@ services:
             - "25114:1521"
         shm_size: 1g
         volumes:
-            - "../oracle/scripts:/opt/oracle/scripts/setup"
+            # TODO no entry point yet: add create-19m.sql and mount run-19m.sql
+            #      into /opt/oracle/scripts/setup to make the runner pick it up
+            #- "../oracle/scripts/run-19m.sql:/opt/oracle/scripts/setup/run-19m.sql:ro"
+            - "../oracle/scripts/Zoo-26:/Zoo-26:ro"
         healthcheck:
             test: grep "Database creation complete" /opt/oracle/cfgtoollogs/dbca/ORCLCDB/ORCLCDB.log || exit 1
             interval: 30s
@@ -177,7 +188,10 @@ services:
             - "25115:1521"
         shm_size: 1g
         volumes:
-            - "../oracle/scripts:/opt/oracle/scripts/setup"
+            # TODO no entry point yet: add create-21m.sql and mount run-21m.sql
+            #      into /opt/oracle/scripts/setup to make the runner pick it up
+            #- "../oracle/scripts/run-12m.sql:/opt/oracle/scripts/setup/run-21m.sql:ro"
+            - "../oracle/scripts/Zoo-26:/Zoo-26:ro"
         healthcheck:
             test: grep "Database creation complete" /opt/oracle/cfgtoollogs/dbca/XE/XE.log || exit 1
             interval: 30s
@@ -196,7 +210,10 @@ services:
             - "25116:1521"
         shm_size: 1g
         volumes:
-            - "../oracle/scripts:/opt/oracle/scripts/setup"
+            # TODO no entry point yet: add create-23m.sql and mount run-23m.sql
+            #      into /opt/oracle/scripts/setup to make the runner pick it up
+            #- "../oracle/scripts/run-23m.sql:/opt/oracle/scripts/setup/run-23m.sql:ro"
+            - "../oracle/scripts/Zoo-26:/Zoo-26:ro"
         healthcheck:
             test: grep "Database creation complete" /opt/oracle/cfgtoollogs/dbca/FREE/FREE.log || exit 1
             interval: 30s

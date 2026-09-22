@@ -55,10 +55,16 @@ spec:
           protocol: TCP
         resources: {{- toYaml .Values.oracle12c.resources | nindent 10 }}
         volumeMounts:
-        - mountPath: {{ .Values.scriptsMountPath.default }}
+        - mountPath: {{ .Values.scriptsLibPath }}
           name: oracle-scripts
+        - mountPath: {{ .Values.scriptsMountPath.default }}/run-12c.sql
+          name: oracle-run
+          subPath: run-12c.sql
       hostname: oracle12c
       volumes:
       - configMap:
             name: oracle-scripts
         name: oracle-scripts
+      - configMap:
+            name: oracle-run
+        name: oracle-run
