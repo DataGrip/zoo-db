@@ -6,7 +6,7 @@ metadata:
     io.kompose.service: oracle
   {{- include "oracle.labels" . | nindent 4 }}
 data:
-  {{- range $path, $bytes := .Files.Glob "scripts/*" }}
+  {{- range $path, $bytes := .Files.Glob "scripts/Zoo-26/*.sql" }}
   {{ $path | base }}: |
 {{ $bytes | toString | indent 4 }}
   {{- end }}

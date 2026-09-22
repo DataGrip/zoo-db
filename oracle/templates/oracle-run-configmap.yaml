@@ -1,0 +1,18 @@
+{{/*
+The per-version entry points. Each StatefulSet mounts exactly one key of this
+ConfigMap into the directory scanned by the container's setup runner, so that
+the runner sees a single script and the execution order stays the one spelled
+out by the create-*.sql it calls.
+*/}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oracle-run
+  labels:
+    io.kompose.service: oracle
+  {{- include "oracle.labels" . | nindent 4 }}
+data:
+  {{- range $path, $bytes := .Files.Glob "scripts/run-*.sql" }}
+  {{ $path | base }}: |
+{{ $bytes | toString | indent 4 }}
+  {{- end }}
