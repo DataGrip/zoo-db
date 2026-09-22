@@ -91,7 +91,7 @@ oracle23m:
       ephemeral-storage: "1Gi"
   persistence:
     enabled: true
-    size: 10Gi
+    size: 25Gi
     storageClass: ""
     mountPath: /opt/oracle/oradata
 
@@ -108,6 +108,10 @@ scriptsMountPath:
   oracle11c: "/scripts"
   # 12.2 / 19.3 / 21.3 / 23.26
   default: "/opt/oracle/scripts/setup"
+
+# Scripts live here
+# Changing this means changing the '@' path in oracle/scripts/run-*.sql as well.
+scriptsLibPath: "/Zoo-26"
 
 #sqlEnv: {}
 
