@@ -35,6 +35,7 @@ spec:
     spec:
       securityContext:
         runAsUser: 54321
+        runAsGroup: 54321
         fsGroup: 54321
       setHostnameAsFQDN: true
       imagePullSecrets:
