@@ -43,6 +43,8 @@ spec:
       containers:
       - name: oracle12c
         imagePullPolicy: {{ .Values.pullPolicy }}
+        securityContext:
+            runAsGroup: 54321
         env:
         - name: ORACLE_PWD
           valueFrom:
