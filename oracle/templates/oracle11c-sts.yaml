@@ -43,6 +43,8 @@ spec:
       containers:
       - name: oracle11c
         imagePullPolicy: {{ .Values.pullPolicy }}
+        securityContext:
+          runAsGroup: 1000
         image: {{ .Values.oracle11c.image.repository }}:{{ .Values.oracle11c.image.tag | default
           .Chart.AppVersion }}
         ports:
