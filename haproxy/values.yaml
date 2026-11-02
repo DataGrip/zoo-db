@@ -4,8 +4,10 @@ haproxy:
     tag: "3.3.4"
   resources:
     limits:
-      memory: "500Mi"
+      cpu: 1
+      memory: "1Gi"
     requests:
+      cpu: "100m"
       memory: "100Mi"
   annotations:
     external-dns.alpha.kubernetes.io/hostname: datagripdb.labs.jb.gg
@@ -61,8 +63,8 @@ pullPolicy: Always
 
 timeouts:
   connect: 5s
-  client: 60s
-  server: 60s
+  client: 90s
+  server: 120s
 
 tcpServices:
   - name: ms14
