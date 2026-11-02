@@ -8,7 +8,13 @@ RUN sed -i \
       -e 's#ps -ef | grep tns | grep oracle#ps -ef | grep [t]nslsnr#' \
       /etc/init.d/oracle-xe \
  && grep -q '^if false$' /etc/init.d/oracle-xe \
- && grep -q 'grep \[t\]nslsnr' /etc/init.d/oracle-xe
+ && grep -q 'grep \[t\]nslsnr' /etc/init.d/oracle-xe \
+ && sed -i \
+      -e 's#> disable_direct_io\.sql#> /u01/app/oracle/disable_direct_io.sql#' \
+      -e 's#@\./disable_direct_io\.sql#@/u01/app/oracle/disable_direct_io.sql#' \
+      /entrypoint.sh \
+ && grep -q '> /u01/app/oracle/disable_direct_io.sql' /entrypoint.sh \
+ && grep -q '@/u01/app/oracle/disable_direct_io.sql' /entrypoint.sh
 
 ADD ./su-as-self.sh /usr/local/bin/su-as-self
 RUN chmod 755 /usr/local/bin/su-as-self

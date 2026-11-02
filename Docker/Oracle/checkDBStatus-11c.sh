@@ -12,7 +12,7 @@ SQL
 )
 
 case $status in
-    *OPEN*) exit 0 ;;
+    *OPEN*) ;;
     *)      echo "$status"; exit 1 ;;
 esac
 

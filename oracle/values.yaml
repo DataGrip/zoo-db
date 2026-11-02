@@ -22,7 +22,7 @@ oracle12c:
       ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
-      memory: "500Mi"
+      memory: "4Gi"
       ephemeral-storage: "1Gi"
 oracle12m:
   image:
@@ -35,7 +35,7 @@ oracle12m:
       ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
-      memory: "500Mi"
+      memory: "4Gi"
       ephemeral-storage: "1Gi"
 oracle19c:
   image:
@@ -48,7 +48,7 @@ oracle19c:
       ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
-      memory: "500Mi"
+      memory: "5Gi"
       ephemeral-storage: "1Gi"
 oracle19m:
   image:
@@ -61,7 +61,7 @@ oracle19m:
       ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
-      memory: "500Mi"
+      memory: "5Gi"
       ephemeral-storage: "1Gi"
 oracle21m:
   image:
@@ -74,7 +74,7 @@ oracle21m:
       ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
-      memory: "500Mi"
+      memory: "3Gi"
       ephemeral-storage: "1Gi"
 oracle23m:
   image:
@@ -87,7 +87,7 @@ oracle23m:
       ephemeral-storage: "5Gi"
     requests:
       cpu: "200m"
-      memory: "500Mi"
+      memory: "3Gi"
       ephemeral-storage: "1Gi"
   persistence:
     enabled: true
