@@ -43,16 +43,30 @@ alter session set container = ORCLPDB1
 -- to check that the schema is empty) still refer to the session user.
 
 
+-- Service names are written in full, with the DB domain:
+-- EZConnect doesn't append the domain, and the short names
+-- may be not registered in the listener (ORA-12514).
+-- The port 1521 is the port inside the container,
+-- so this script should be run inside the container.
+
+
 -- Create objects in the CDB schema
 
-connect Zoo_26_M/zoo@//localhost:1521/ORCLCDB
+connect Zoo_26_M/zoo@//localhost:1521/ORCLCDB.localdomain
 
 @@make-11.sql
+
+@@grants.sql
 
 
 -- Create objects in the PDB schema
 
-connect Zoo_26_P/zoo@//localhost:1521/ORCLPDB1
+connect Zoo_26_P/zoo@//localhost:1521/ORCLPDB1.localdomain
 
 @@make-11.sql
+
+@@grants.sql
+
+
+exit
 

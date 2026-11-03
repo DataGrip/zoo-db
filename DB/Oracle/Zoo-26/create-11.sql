@@ -26,3 +26,5 @@ end;
 connect Zoo_26/zoo
 
 @@make-11.sql
+
+exit

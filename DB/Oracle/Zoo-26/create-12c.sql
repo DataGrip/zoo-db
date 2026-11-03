@@ -18,3 +18,8 @@ whenever sqlerror exit sql.sqlcode
 connect Zoo_26/zoo
 
 @@make-11.sql
+
+@@grants.sql
+
+
+exit
