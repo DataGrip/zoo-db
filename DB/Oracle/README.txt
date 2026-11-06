@@ -1,4 +1,4 @@
-This directory contains SQL script for preparing Oracle databases
+This directory contains SQL scripts for preparing Oracle databases
 and creating test schemas.
 
 
@@ -50,8 +50,25 @@ Don't use dots inside file names.
 Files
 -----
 
-There is one startup file for each version and type of Oracle installation,
-it's named 'create-*.sql'. This script should be performed being logged in
-as SYS with the SYSDBA option. Only this file should contain commands to
-connect or switch users, other script files must not switch the current user.
+The scripts are split into three parts:
+
+    ./create-*.sql — startup scripts, one for each version and type
+                     of Oracle installation;
+    ./Sys/         — scripts that change system objects: set up the database,
+                     create roles, users and (empty) schemas;
+    ./Zoo-26/      — scripts that create objects inside the Zoo schema,
+                     and grant access to them.
+
+A startup script should be performed being logged in as SYS with the SYSDBA
+option. Only the startup scripts should contain commands to connect or switch
+users (or containers), other script files must not switch the current user.
+
+The scripts from ./Sys/ are performed as SYS. The scripts from ./Zoo-26/ are
+performed being logged in as the owner of the Zoo schema in the regular mode,
+with no administrative privileges (make-11.sql checks it).
+
+The startup scripts include other scripts with '@@' and a path relative
+to this directory, for example '@@Sys/init-database-c.sql'.
+Inside a subdirectory, the scripts refer to each other by a bare name,
+because SQL*Plus resolves '@@' relative to the directory of the calling script.
 

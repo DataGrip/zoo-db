@@ -4,11 +4,19 @@
 whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
 
-@@init-database-c.sql
+@@Sys/init-database-c.sql
 
-@@init-tourismus-c.sql
+@@Sys/init-tourismus-c.sql
 
-@@init-schema-c.sql
+@@Sys/init-schema-c.sql
+
+
+-- This script is needed to reduce introspection time
+begin
+    sys.dbms_stats.gather_dictionary_stats;
+    sys.dbms_stats.gather_fixed_objects_stats;
+end;
+/
 
 
 -- The empty schema is now created.
@@ -17,9 +25,8 @@ whenever sqlerror exit sql.sqlcode
 
 connect Zoo_26/zoo
 
-@@make-11.sql
+@@Zoo-26/make-11.sql
 
-@@grants.sql
-
+@@Zoo-26/grants.sql
 
 exit

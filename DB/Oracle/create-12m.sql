@@ -12,16 +12,16 @@ whenever sqlerror exit sql.sqlcode
 -- is not propagated to the PDBs at all, and the objects get flagged
 -- as ORACLE_MAINTAINED.
 
-@@init-database-m.sql
+@@Sys/init-database-m.sql
 
-@@init-tourismus-m.sql
+@@Sys/init-tourismus-m.sql
 
 
 -- Init the CDB schema.
 -- Unlike the common roles and accounts above, Zoo_26_M still needs
 -- the GOD mode -- this script turns it on and off by itself.
 
-@@init-schema-m.sql
+@@Sys/init-schema-m.sql
 
 
 
@@ -30,9 +30,9 @@ whenever sqlerror exit sql.sqlcode
 alter session set container = ORCLPDB1
 /
 
-@@init-database-p.sql
+@@Sys/init-database-p.sql
 
-@@init-schema-p.sql
+@@Sys/init-schema-p.sql
 
 
 -- The empty schemas are now created.
@@ -54,18 +54,18 @@ alter session set container = ORCLPDB1
 
 connect Zoo_26_M/zoo@//localhost:1521/ORCLCDB.localdomain
 
-@@make-11.sql
+@@Zoo-26/make-11.sql
 
-@@grants.sql
+@@Zoo-26/grants.sql
 
 
 -- Create objects in the PDB schema
 
 connect Zoo_26_P/zoo@//localhost:1521/ORCLPDB1.localdomain
 
-@@make-11.sql
+@@Zoo-26/make-11.sql
 
-@@grants.sql
+@@Zoo-26/grants.sql
 
 
 exit
