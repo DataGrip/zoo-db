@@ -59,7 +59,9 @@ The scripts are split into three parts:
     ./Zoo-26/      — scripts that create objects inside the Zoo schema,
                      and grant access to them.
 
-A startup script should be performed being logged in as SYS with the SYSDBA
+A startup script should be performed by SQL*Plus on the machine where
+the Oracle server is running (for a dockerized Oracle it's the container
+with the server; see below why), being logged in as SYS with the SYSDBA
 option. Only the startup scripts should contain commands to connect or switch
 users (or containers), other script files must not switch the current user.
 
@@ -72,3 +74,9 @@ to this directory, for example '@@Sys/init-database-c.sql'.
 Inside a subdirectory, the scripts refer to each other by a bare name,
 because SQL*Plus resolves '@@' relative to the directory of the calling script.
 
+The scripts from ./Sys/ may also call the Oracle administrative scripts
+from '$ORACLE_HOME/rdbms/admin', using the '@?' syntax, for example
+'@?/rdbms/admin/utl32k.sql' ('?' means $ORACLE_HOME in SQL*Plus).
+SQL*Plus resolves '?' on the machine where SQL*Plus itself runs, and the
+startup scripts connect to the database via 'localhost:1521'. That's why
+the startup scripts should be performed on the Oracle server machine.

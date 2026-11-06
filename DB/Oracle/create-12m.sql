@@ -30,6 +30,11 @@ whenever sqlerror exit sql.sqlcode
 alter session set container = ORCLPDB1
 /
 
+-- Only the PDB gets the extended data types (long VARCHAR2 etc.), the CDB root keeps the standard ones.
+-- This is done first, while the PDB is still empty, so utl32k.sql has less work.
+
+@@Sys/extend-12p.sql
+
 @@Sys/init-database-p.sql
 
 @@Sys/init-schema-p.sql
