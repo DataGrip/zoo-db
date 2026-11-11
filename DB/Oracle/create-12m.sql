@@ -33,6 +33,10 @@ whenever sqlerror exit sql.sqlcode
 
 @@Sys/init-alterhof-m.sql
 
+-- Create and open the PDB for the schema with editions.
+
+@@Sys/init-bluechip-m.sql
+
 
 
 -- Init the PDB schema
@@ -48,6 +52,16 @@ alter session set container = ORCLPDB1
 @@Sys/init-database-p.sql
 
 @@Sys/init-schema-p.sql
+
+
+-- Init the schema with editions in the PDB BLUECHIP
+
+alter session set container = BLUECHIP
+/
+
+@@Sys/init-database-p.sql
+
+@@Sys/init-bluechip-p.sql
 
 
 -- The empty schemas are now created.
@@ -77,6 +91,15 @@ connect Zoo_26_M/zoo@//localhost:1521/ORCLCDB.localdomain
 -- Create objects in the PDB schema
 
 connect Zoo_26_P/zoo@//localhost:1521/ORCLPDB1.localdomain
+
+@@Zoo-26/make-11.sql
+
+@@Zoo-26/grants.sql
+
+
+-- Create objects in the schema with editions in the PDB BLUECHIP
+
+connect Zoo_26_Q/zoo@//localhost:1521/BLUECHIP.localdomain
 
 @@Zoo-26/make-11.sql
 

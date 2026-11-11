@@ -11,6 +11,8 @@ Schema names:
     - ZOO_26    — in the classic database
     - ZOO_26_M  — in the multitenant CDB
     - ZOO_26_P  — in the multitenant PDB
+    - ZOO_26_Q  — in the additional multitenant PDB named BLUECHIP,
+                  this schema has editions enabled (see below)
 Number 26 is the year when this schema was originated;
 we'll be able to create another Zoo schema if we decide
 that the current one is too wrong.
@@ -39,6 +41,14 @@ to test how the introspector deals with PDBs in unusual states.
                  its status in DBA_PDBS is UNPLUGGED
 
 Don't open NEORETRO: the first opening changes its status to NORMAL forever.
+
+One more additional PDB is a regular open one:
+    - BLUECHIP — contains the schema ZOO_26_Q with editions enabled
+                 (Edition-Based Redefinition)
+The editions are enabled for all editionable kinds of objects except types,
+because the Zoo schema has a table with columns of user-defined types,
+and a table cannot depend on an editioned object. The schema is created
+by the script ./Sys/init-bluechip-p.sql, that is performed inside this PDB.
 
 Every such PDB is created by its own script ./Sys/init-<pdb name>-m.sql,
 that also checks the resulting status. The paths to the data files are
