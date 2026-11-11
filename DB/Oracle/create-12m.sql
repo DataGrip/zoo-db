@@ -24,6 +24,16 @@ whenever sqlerror exit sql.sqlcode
 @@Sys/init-schema-m.sql
 
 
+-- Create the additional PDB that is never opened (its status stays NEW).
+-- The session is still in the CDB root here.
+
+@@Sys/init-neoretro-m.sql
+
+-- Create one more additional PDB and unplug it (its status is UNPLUGGED).
+
+@@Sys/init-alterhof-m.sql
+
+
 
 -- Init the PDB schema
 

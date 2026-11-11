@@ -27,6 +27,25 @@ requires adding the strange prefix 'C##' for their "common" user accounts.
     — [C##_]Tourist_S — has both of the two previous (deprecated)
 
 
+Additional PDBs
+===============
+
+Besides the main PDB with the Zoo schema, the multitenant database has
+several additional PDBs. They contain nothing useful, they are needed
+to test how the introspector deals with PDBs in unusual states.
+    - NEORETRO — created but never opened; it stays mounted,
+                 and its status in DBA_PDBS is NEW
+    - ALTERHOF — created, opened once, closed and unplugged;
+                 its status in DBA_PDBS is UNPLUGGED
+
+Don't open NEORETRO: the first opening changes its status to NORMAL forever.
+
+Every such PDB is created by its own script ./Sys/init-<pdb name>-m.sql,
+that also checks the resulting status. The paths to the data files are
+hardcoded in these scripts, they match our Oracle 12.2 multitenant docker
+image; for other installations the paths may need to be changed.
+
+
 Naming Convention
 =================
 
