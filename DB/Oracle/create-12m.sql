@@ -106,5 +106,13 @@ connect Zoo_26_Q/zoo@//localhost:1521/BLUECHIP.localdomain
 @@Zoo-26/grants.sql
 
 
-exit
+-- Tell the health check that the setup is over.
+-- This script exits SQL*Plus on the first error, so this is reached
+-- only when every script of the chain has succeeded.
 
+spool /tmp/zoo-26-setup-complete.log
+prompt Setup complete.
+spool off
+
+
+exit
