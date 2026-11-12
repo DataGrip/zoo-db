@@ -4,6 +4,16 @@
 whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
 
+
+-- Log everything into a file: the text of every command and its result.
+-- If something fails, the end of this file shows the failed command and the error.
+-- NB: when SQL*Plus is started in the silent mode (with the option -S),
+-- it doesn't echo commands, so the log contains the results only.
+
+spool /tmp/zoo-26-setup.log
+set trimspool on
+set echo on
+
 @@Sys/init-database-c.sql
 
 @@Sys/init-tourismus-c.sql
@@ -28,6 +38,11 @@ connect Zoo_26/zoo
 @@Zoo-26/make-11.sql
 
 @@Zoo-26/grants.sql
+
+
+-- Close the log file
+
+spool off
 
 
 -- Tell the health check that the setup is over.

@@ -5,6 +5,16 @@ whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
 
 
+-- Log everything into a file: the text of every command and its result.
+-- If something fails, the end of this file shows the failed command and the error.
+-- NB: when SQL*Plus is started in the silent mode (with the option -S),
+-- it doesn't echo commands, so the log contains the results only.
+
+spool /tmp/zoo-26-setup.log
+set trimspool on
+set echo on
+
+
 -- Init the common roles and accounts.
 -- All of them are named with the C## prefix, so they are created in a regular
 -- way: CONTAINER = ALL makes Oracle propagate them into every PDB.
@@ -48,6 +58,12 @@ alter session set container = ORCLPDB1
 -- This is done first, while the PDB is still empty, so utl32k.sql has less work.
 
 @@Sys/extend-12p.sql
+
+-- The Oracle scripts called from there may change the SQL*Plus settings
+-- or close the log file, so turn the logging on again.
+
+spool /tmp/zoo-26-setup.log append
+set echo on
 
 @@Sys/init-database-p.sql
 
@@ -104,6 +120,11 @@ connect Zoo_26_Q/zoo@//localhost:1521/BLUECHIP.localdomain
 @@Zoo-26/make-11.sql
 
 @@Zoo-26/grants.sql
+
+
+-- Close the log file
+
+spool off
 
 
 -- Tell the health check that the setup is over.
