@@ -23,8 +23,10 @@ ms16:
   resources:
     limits:
       memory: "3Gi"
+      ephemeral-storage: "3Gi"
     requests:
       memory: "250Mi"
+      ephemeral-storage: "1Gi"
 
 replicas: 1
 

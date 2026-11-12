@@ -25,6 +25,8 @@ spec:
       containers:
         - name: haproxy
           image: {{ .Values.haproxy.image.repository }}:{{ .Values.haproxy.image.tag }}
+          resources:
+            {{- toYaml .Values.haproxy.resources | nindent 12 }}
           securityContext:
             runAsNonRoot: true
             runAsUser: 99

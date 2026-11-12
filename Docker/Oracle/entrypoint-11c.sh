@@ -51,6 +51,22 @@ if [ "$ready" != yes ]; then
     exit $?
 fi
 
+# Remove repeated asynchronous I/O context teardown. Set the instance default
+# and persist it in the SPFILE
+echo '(*) Disabling optimizer cardinality feedback for Oracle 11g XE'
+if ! sqlplus -S -L / as sysdba <<'SQL'
+whenever oserror exit failure
+whenever sqlerror exit failure
+alter system set "_optimizer_use_feedback" = false scope=both;
+exit;
+SQL
+then
+    echo '(!) Failed to configure optimizer cardinality feedback'
+    kill -TERM "$oracle_pid" 2>/dev/null
+    wait "$oracle_pid"
+    exit 1
+fi
+
 if ! lsnrctl status >/dev/null 2>&1; then
     echo "(*) Listener is down after startup, starting it"
     lsnrctl start
