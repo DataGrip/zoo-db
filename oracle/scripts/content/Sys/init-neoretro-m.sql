@@ -7,15 +7,38 @@
 --
 -- Run this script being logged in as SYS in the CDB root with the role SYSDBA.
 --
--- The paths are hardcoded, they match our Oracle 12.2 multitenant docker image.
--- The actual path to the seed files can be checked with the query:
---     select name from v$datafile where con_id = 2
+-- The paths are not hardcoded: different Oracle docker images keep their data
+-- files in different places. The directory of the seed files is taken from
+-- V$DATAFILE, and the files of the new PDB are placed into a sibling directory.
+-- That's why the commands with paths are built and performed in PL/SQL blocks,
+-- every such command is also printed (when SERVEROUTPUT is on).
 
 
-create pluggable database NEORETRO
-    admin user Neoretro_Admin identified by zoo
-    file_name_convert = ('/u02/app/oracle/oradata/ORCL/pdbseed/',
-                         '/u02/app/oracle/oradata/ORCL/NEORETRO/')
+declare
+    seed_file varchar2(513);
+    seed_dir  varchar2(513);
+    pdb_dir   varchar2(513);
+    cmd       varchar2(2000);
+begin
+    -- for example: /opt/oracle/oradata/ORCLCDB/pdbseed/system01.dbf
+    select name
+    into seed_file
+    from v$datafile
+    where con_id = 2
+      and rownum = 1;
+    --
+    -- the seed directory, with the trailing slash
+    seed_dir := substr(seed_file, 1, instr(seed_file, '/', -1));
+    -- the sibling directory: cut the last directory name off and add the new one
+    pdb_dir := substr(seed_dir, 1, instr(seed_dir, '/', -1, 2)) || 'NEORETRO/';
+    --
+    cmd := 'create pluggable database NEORETRO'
+        || ' admin user Neoretro_Admin identified by zoo'
+        || ' file_name_convert = (''' || seed_dir || ''', ''' || pdb_dir || ''')';
+    --
+    dbms_output.put_line(cmd);
+    execute immediate cmd;
+end;
 /
 
 

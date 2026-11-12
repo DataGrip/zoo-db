@@ -14,6 +14,11 @@ spool /tmp/zoo-26-setup.log
 set trimspool on
 set echo on
 
+-- Some commands are built and performed in PL/SQL blocks,
+-- these blocks print the commands they perform; make it visible.
+
+set serveroutput on
+
 
 -- Init the common roles and accounts.
 -- All of them are named with the C## prefix, so they are created in a regular
@@ -64,6 +69,7 @@ alter session set container = ORCLPDB1
 
 spool /tmp/zoo-26-setup.log append
 set echo on
+set serveroutput on
 
 @@Sys/init-database-p.sql
 
