@@ -141,18 +141,17 @@ Our default namespace in the K8s cluster is `datagrip-services`.
 `mssql` - For MS SQL databases. All scripts that must be started when a container is UP are in `./mssql/scripts` directory. 
 **Update** `./mssql/scripts/scripts.json` if you add new scripts to `./DB/Microsoft/Zoo-25/` directory or remove ones.  
 
-`oracle` - For Oracle databases. All scripts that must be started when a container is UP are in `./oracle/scripts` directory,
-which duplicates the scripts from `./DB/Oracle/`.
-**Note:** the copy still has the old flat layout (all scripts in one directory), while in `./DB/Oracle/`
-the scripts are now split into the startup scripts `create-*.sql`, the `Sys/` and the `Zoo-26/` subdirectories
-(see `./DB/Oracle/README.txt`). So the copy can't be just refreshed by copying files — the deployment
-has to be reworked first.
+`oracle` - For Oracle databases. All scripts that must be started when a container is UP are in `./oracle/scripts` directory.
 
 The scripts execution order is spelled out by the `create-*.sql` scripts via the SQL\*Plus `@@` includes. 
 * `./oracle/scripts/run-<ver>.sql` — a one-line entry point per version, mounted as the **only** file in the
   scanned directory (`/scripts` for 11.2, `/opt/oracle/scripts/setup` for the rest), so it is the only script
   the runner starts.  
-* `./oracle/scripts/Zoo-26/` — the copy (in the old flat layout) of the scripts from `./DB/Oracle/`, which are awoken by `run-<ver>.sql`  
+* `./oracle/scripts/content/` — the copy of `./DB/Oracle/` as is, with its subdirectories `Sys/` and `Zoo-26/`
+  (see `./DB/Oracle/README.txt`). It is mounted at `/content`, outside of the scanned directory,
+  and its startup script `create-<ver>.sql` is awoken by `run-<ver>.sql`.  
+  In the Helm chart all these scripts are in one ConfigMap; a ConfigMap cannot hold subdirectories,
+  so the slashes in its keys are replaced with `__`, and the volume maps the keys back to the original paths.  
   
 `haproxy` - For Load Balancer deployment.  
 

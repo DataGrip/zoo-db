@@ -59,9 +59,7 @@ spec:
           subPath: run-11.sql
       hostname: oracle11c
       volumes:
-      - configMap:
-            name: oracle-scripts
-        name: oracle-scripts
+      {{- include "oracle.scriptsVolume" . | nindent 6 }}
       - configMap:
             name: oracle-run
         name: oracle-run

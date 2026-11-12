@@ -146,6 +146,24 @@ Gated on oracle<version>.persistence.enabled - each version opts in independentl
 {{- end }}
 
 {{/*
+volumes entry with all the scripts from scripts/content: the ConfigMap "oracle-scripts"
+(see oracle-scripts-configmap.yaml), where every key is mapped back to its original
+path, so the mounted volume has the same directory tree as scripts/content.
+Usage: {{ include "oracle.scriptsVolume" . | nindent 6 }}
+*/}}
+{{- define "oracle.scriptsVolume" -}}
+- configMap:
+    name: oracle-scripts
+    items:
+    {{- range $path, $_ := .Files.Glob "scripts/content/**.sql" }}
+    {{- $rel := trimPrefix "scripts/content/" $path }}
+    - key: {{ $rel | replace "/" "__" }}
+      path: {{ $rel }}
+    {{- end }}
+  name: oracle-scripts
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "oracle.serviceAccountName" -}}

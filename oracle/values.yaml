@@ -109,9 +109,9 @@ scriptsMountPath:
   # 12.2 / 19.3 / 21.3 / 23.26
   default: "/opt/oracle/scripts/setup"
 
-# Scripts live here
+# The copy of the scripts (oracle/scripts/content) is mounted here, with its subdirectories.
 # Changing this means changing the '@' path in oracle/scripts/run-*.sql as well.
-scriptsLibPath: "/Zoo-26"
+scriptsLibPath: "/content"
 
 #sqlEnv: {}
 
