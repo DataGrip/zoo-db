@@ -150,6 +150,9 @@ The scripts execution order is spelled out by the `create-*.sql` scripts via the
 * `./oracle/scripts/content/` — the copy of `./DB/Oracle/` as is, with its subdirectories `Sys/` and `Zoo-26/`
   (see `./DB/Oracle/README.txt`). It is mounted at `/content`, outside of the scanned directory,
   and its startup script `create-<ver>.sql` is awoken by `run-<ver>.sql`.  
+  The containers are started with the environment variable `SQLPATH=/content`: SQL\*Plus looks for
+  the scripts included with a subdirectory (like `@@Sys/x.sql`) in the current directory and then in `SQLPATH`,
+  not next to the calling script.  
   In the Helm chart all these scripts are in one ConfigMap; a ConfigMap cannot hold subdirectories,
   so the slashes in its keys are replaced with `__`, and the volume maps the keys back to the original paths.  
   

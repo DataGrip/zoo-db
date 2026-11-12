@@ -51,6 +51,10 @@ spec:
             secretKeyRef:
               key: password
               name: {{ include "oracle.fullname" . }}-sys-password
+        # SQL*Plus looks for the scripts included with a relative path (like '@@Sys/x.sql')
+        # in the current directory and then here, not next to the calling script.
+        - name: SQLPATH
+          value: {{ .Values.scriptsLibPath | quote }}
         image: {{ .Values.oracle12c.image.repository }}:{{ .Values.oracle12c.image.tag | default
           .Chart.AppVersion }}
         ports:

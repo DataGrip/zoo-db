@@ -7,8 +7,13 @@
 -- that create-11.sql itself defines.
 --
 -- The path below must be absolute, it starts with the root of the container's
--- file system. Inside /content the scripts refer to each other with '@@'
--- and relative paths, that are resolved relative to the calling script.
+-- file system.
+--
+-- Inside /content the scripts refer to each other with '@@'. SQL*Plus looks
+-- for a script next to the calling one only when it's included by a bare name;
+-- a name with a subdirectory (like '@@Sys/x.sql') is looked for in the current
+-- directory and then in the directories listed in the environment variable
+-- SQLPATH. That's why the containers are started with SQLPATH=/content.
 
 @/content/create-11.sql
 

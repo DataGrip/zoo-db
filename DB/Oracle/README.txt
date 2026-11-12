@@ -101,8 +101,14 @@ with no administrative privileges (make-11.sql checks it).
 
 The startup scripts include other scripts with '@@' and a path relative
 to this directory, for example '@@Sys/init-database-c.sql'.
-Inside a subdirectory, the scripts refer to each other by a bare name,
-because SQL*Plus resolves '@@' relative to the directory of the calling script.
+Inside a subdirectory, the scripts refer to each other by a bare name.
+
+ATTENTION: SQL*Plus looks for a script next to the calling one only when
+it's included by a bare name. A name with a subdirectory is looked for in
+the current directory and then in the directories listed in the environment
+variable SQLPATH. So a startup script should be run either from this directory
+(cd here first), or with SQLPATH pointing to this directory; otherwise
+it fails with "SP2-0310: unable to open file".
 
 The scripts from ./Sys/ may also call the Oracle administrative scripts
 from '$ORACLE_HOME/rdbms/admin', using the '@?' syntax, for example

@@ -81,6 +81,10 @@ services:
         ports:
             - "25110:1521"
         shm_size: 1g
+        environment:
+            # SQL*Plus looks for the scripts included with a relative path
+            # (like '@@Sys/x.sql') in the current directory and then here
+            SQLPATH: /content
         volumes:
             - "../oracle/scripts/run-11.sql:/scripts/run-11.sql:ro"
             - "../oracle/scripts/content:/content:ro"
@@ -102,6 +106,10 @@ services:
         ports:
             - "25111:1521"
         shm_size: 1g
+        environment:
+            # SQL*Plus looks for the scripts included with a relative path
+            # (like '@@Sys/x.sql') in the current directory and then here
+            SQLPATH: /content
         volumes:
             - "../oracle/scripts/run-12c.sql:/opt/oracle/scripts/setup/run-12c.sql:ro"
             - "../oracle/scripts/content:/content:ro"
@@ -122,6 +130,10 @@ services:
         ports:
             - "25112:1521"
         shm_size: 1g
+        environment:
+            # SQL*Plus looks for the scripts included with a relative path
+            # (like '@@Sys/x.sql') in the current directory and then here
+            SQLPATH: /content
         volumes:
             - "../oracle/scripts/run-12m.sql:/opt/oracle/scripts/setup/run-12m.sql:ro"
             - "../oracle/scripts/content:/content:ro"

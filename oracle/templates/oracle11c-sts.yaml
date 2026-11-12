@@ -45,6 +45,11 @@ spec:
         imagePullPolicy: {{ .Values.pullPolicy }}
         securityContext:
           runAsGroup: 1000
+        env:
+        # SQL*Plus looks for the scripts included with a relative path (like '@@Sys/x.sql')
+        # in the current directory and then here, not next to the calling script.
+        - name: SQLPATH
+          value: {{ .Values.scriptsLibPath | quote }}
         image: {{ .Values.oracle11c.image.repository }}:{{ .Values.oracle11c.image.tag | default
           .Chart.AppVersion }}
         ports:
