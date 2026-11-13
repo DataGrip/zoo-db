@@ -167,3 +167,70 @@ In case you need to update deployment manually, follow these steps:
 * Deploy with `kubectl apply -f rendered.yaml`  
 OR  
 run `skaffold render | kubectl apply -f` - for automatic deployment. 
+
+### Deploying one container manually (without Skaffold)
+
+It is useful for trying a change from a branch on one database only, without touching the others.
+You need `helm` and `kubectl` with access to the cluster (a special VPN is required).
+All the commands below are run from the root directory of the repository;
+the example deploys Oracle 12.2 multitenant (`12m`).
+
+Helm is used here only for rendering the manifests, `kubectl` applies them.
+The option `--show-only` selects the templates to render: the scripts, the entry points,
+and the StatefulSet of the container to deploy.
+
+1. If the SQL scripts were changed, update their deployment copy:
+
+   ```
+   ./oracle/syncTheCopy.sh
+   ```
+
+2. Look at what is going to change in the cluster:
+
+   ```
+   helm template zoo-oracle ./oracle --namespace datagrip-services \
+       --show-only templates/oracle-scripts-configmap.yaml \
+       --show-only templates/oracle-run-configmap.yaml \
+       --show-only templates/oracle12m-sts.yaml \
+     | kubectl diff -n datagrip-services -f -
+   ```
+
+3. Apply the changes (the same command, but with `apply` instead of `diff`):
+
+   ```
+   helm template zoo-oracle ./oracle --namespace datagrip-services \
+       --show-only templates/oracle-scripts-configmap.yaml \
+       --show-only templates/oracle-run-configmap.yaml \
+       --show-only templates/oracle12m-sts.yaml \
+     | kubectl apply -n datagrip-services -f -
+   ```
+
+4. Restart the container. A change in the StatefulSet restarts it automatically,
+   but a change in the scripts only (they are in ConfigMaps) does not:
+
+   ```
+   kubectl rollout restart statefulset oracle-12m -n datagrip-services
+   ```
+
+5. Wait until the database is created and the scripts are performed, it can take 10 minutes or more.
+   The log of the scripts is `/tmp/zoo-26-setup.log` inside the container (it can stay empty for a long time,
+   because the output is buffered); the file `/tmp/zoo-26-setup-complete.log` appears when the setup
+   has finished successfully.
+
+   ```
+   kubectl get pods -n datagrip-services | grep oracle-12m
+   kubectl exec -n datagrip-services oracle-12m-0 -c oracle12m -- tail -20 /tmp/zoo-26-setup.log
+   kubectl exec -n datagrip-services oracle-12m-0 -c oracle12m -- ls -l /tmp/zoo-26-setup-complete.log
+   ```
+
+   If the pod doesn't start, look at `kubectl describe pod oracle-12m-0 -n datagrip-services`
+   and `kubectl describe statefulset oracle-12m -n datagrip-services`.
+
+For another Oracle version replace `12m` in the names of the template, the StatefulSet, the pod
+and the container (for example: `oracle11c-sts.yaml`, `oracle-11c`, `oracle-11c-0`, `oracle11c`).
+
+ATTENTION: the ConfigMaps with the scripts are shared by all Oracle containers. After a manual deployment
+the other containers get the new scripts at their next restart, so don't leave the cluster
+in such a state for long: either merge the branch into `master`, or roll the change back.
+
+To roll back, perform the same steps from a checkout of the `master` branch.
