@@ -4,43 +4,20 @@
 --
 -- Run this script being logged in as SYS in the CDB root with the role SYSDBA.
 --
--- The paths are not hardcoded: different Oracle docker images keep their data
--- files in different places. The directory of the seed files is taken from
--- V$DATAFILE, and the files of the new PDB are placed into a sibling directory.
--- That's why the commands with paths are built and performed in PL/SQL blocks,
--- every such command is also printed (when SERVEROUTPUT is on).
+-- The paths to the data files are hardcoded, they are the paths of our docker image:
+-- the seed files are in /opt/oracle/oradata/ORCLCDB/pdbseed/, and the files
+-- of the new PDB are placed into a sibling directory.
 
 
 -- The seed has no tablespace for user data, so the tablespace Users is created here.
 
-declare
-    seed_file varchar2(513);
-    seed_dir  varchar2(513);
-    pdb_dir   varchar2(513);
-    cmd       varchar2(2000);
-begin
-    -- for example: /opt/oracle/oradata/ORCLCDB/pdbseed/system01.dbf
-    select name
-    into seed_file
-    from v$datafile
-    where con_id = 2
-      and rownum = 1;
-    --
-    -- the seed directory, with the trailing slash
-    seed_dir := substr(seed_file, 1, instr(seed_file, '/', -1));
-    -- the sibling directory: cut the last directory name off and add the new one
-    pdb_dir := substr(seed_dir, 1, instr(seed_dir, '/', -1, 2)) || 'BLUECHIP/';
-    --
-    cmd := 'create pluggable database BLUECHIP'
-        || ' admin user Bluechip_Admin identified by zoo'
-        || ' default tablespace Users'
-        || ' datafile ''' || pdb_dir || 'users01.dbf'''
-        || ' size 16m autoextend on next 16m'
-        || ' file_name_convert = (''' || seed_dir || ''', ''' || pdb_dir || ''')';
-    --
-    dbms_output.put_line(cmd);
-    execute immediate cmd;
-end;
+create pluggable database BLUECHIP
+    admin user Bluechip_Admin identified by zoo
+    default tablespace Users
+        datafile '/opt/oracle/oradata/ORCLCDB/BLUECHIP/users01.dbf'
+        size 16m autoextend on next 16m
+    file_name_convert = ('/opt/oracle/oradata/ORCLCDB/pdbseed/',
+                         '/opt/oracle/oradata/ORCLCDB/BLUECHIP/')
 /
 
 alter pluggable database BLUECHIP open read write

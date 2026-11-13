@@ -51,10 +51,12 @@ and a table cannot depend on an editioned object. The schema is created
 by the script ./Sys/init-bluechip-p.sql, that is performed inside this PDB.
 
 Every such PDB is created by its own script ./Sys/init-<pdb name>-m.sql,
-that also checks the resulting status. The paths to the data files are not
-hardcoded, because different Oracle docker images keep the files in different
-places: every script takes the directory of the seed files from V$DATAFILE
-and places the files of its PDB into a sibling directory.
+that also checks the resulting status. The paths to the data files are
+hardcoded in these scripts: the seed files of our docker image are in
+/opt/oracle/oradata/ORCLCDB/pdbseed/, and every script places the files
+of its PDB into a sibling directory, /opt/oracle/oradata/ORCLCDB/<pdb name>/.
+With another image, where the files are in another place, the creation fails
+with ORA-65005 (missing or invalid file name pattern).
 
 
 Naming Convention

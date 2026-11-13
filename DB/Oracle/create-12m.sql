@@ -14,8 +14,7 @@ spool /tmp/zoo-26-setup.log
 set trimspool on
 set echo on
 
--- Some commands are built and performed in PL/SQL blocks,
--- these blocks print the commands they perform; make it visible.
+-- Make the messages printed by PL/SQL blocks visible.
 
 set serveroutput on
 

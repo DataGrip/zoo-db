@@ -14,8 +14,7 @@ spool /tmp/zoo-26-setup.log
 set trimspool on
 set echo on
 
--- Some commands are built and performed in PL/SQL blocks,
--- these blocks print the commands they perform; make it visible.
+-- Make the messages printed by PL/SQL blocks visible.
 
 set serveroutput on
 
@@ -103,7 +102,7 @@ alter session set container = BLUECHIP
 
 -- Create objects in the CDB schema
 
-connect Zoo_26_M/zoo@//localhost:1521/ORCLCDB.localdomain
+connect Zoo_26_M/zoo@//localhost:1521/ORCLCDB
 
 @@Zoo-26/make-11.sql
 
@@ -112,7 +111,7 @@ connect Zoo_26_M/zoo@//localhost:1521/ORCLCDB.localdomain
 
 -- Create objects in the PDB schema
 
-connect Zoo_26_P/zoo@//localhost:1521/ORCLPDB1.localdomain
+connect Zoo_26_P/zoo@//localhost:1521/ORCLPDB1
 
 @@Zoo-26/make-11.sql
 
@@ -121,7 +120,7 @@ connect Zoo_26_P/zoo@//localhost:1521/ORCLPDB1.localdomain
 
 -- Create objects in the schema with editions in the PDB BLUECHIP
 
-connect Zoo_26_Q/zoo@//localhost:1521/BLUECHIP.localdomain
+connect Zoo_26_Q/zoo@//localhost:1521/BLUECHIP
 
 @@Zoo-26/make-11.sql
 
