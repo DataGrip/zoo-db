@@ -1,3 +1,10 @@
+{{/*
+All the scripts from scripts/content, including the ones from its subdirectories.
+A ConfigMap cannot hold subdirectories and a key cannot contain a slash,
+so the slashes in the keys are replaced with '__' (Sys/x.sql -> Sys__x.sql).
+The volume defined in "oracle.scriptsVolume" (see _helpers.tpl) maps the keys
+back to the original paths, so the pod sees the original directory tree.
+*/}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,7 +13,7 @@ metadata:
     io.kompose.service: oracle
   {{- include "oracle.labels" . | nindent 4 }}
 data:
-  {{- range $path, $bytes := .Files.Glob "scripts/Zoo-26/*.sql" }}
-  {{ $path | base }}: |
+  {{- range $path, $bytes := .Files.Glob "scripts/content/**.sql" }}
+  {{ $path | trimPrefix "scripts/content/" | replace "/" "__" }}: |
 {{ $bytes | toString | indent 4 }}
   {{- end }}

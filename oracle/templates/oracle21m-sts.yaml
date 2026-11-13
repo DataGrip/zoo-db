@@ -55,10 +55,9 @@ spec:
           protocol: TCP
         resources: {{- toYaml .Values.oracle21m.resources | nindent 10 }}
         volumeMounts:
-        - mountPath: {{ .Values.scriptsMountPath.default }}
+        {{- /* TODO no entry point yet: add create-21m.sql and run-21m.sql, and mount the latter from oracle-run, see oracle12m-sts.yaml */}}
+        - mountPath: {{ .Values.scriptsLibPath }}
           name: oracle-scripts
       hostname: oracle21m
       volumes:
-      - configMap:
-            name: oracle-scripts
-        name: oracle-scripts
+      {{- include "oracle.scriptsVolume" . | nindent 6 }}

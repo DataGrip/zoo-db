@@ -59,12 +59,11 @@ spec:
           protocol: TCP
         resources: {{- toYaml .Values.oracle23m.resources | nindent 10 }}
         volumeMounts:
-        - mountPath: {{ .Values.scriptsMountPath.default }}
+        {{- /* TODO no entry point yet: add create-23m.sql and run-23m.sql, and mount the latter from oracle-run, see oracle12m-sts.yaml */}}
+        - mountPath: {{ .Values.scriptsLibPath }}
           name: oracle-scripts
         {{- include "oracle.pvcVolumeMount" (dict "root" . "version" "23m") | nindent 8 }}
       hostname: oracle23m
       volumes:
-      - configMap:
-            name: oracle-scripts
-        name: oracle-scripts
+      {{- include "oracle.scriptsVolume" . | nindent 6 }}
       {{- include "oracle.pvcVolume" (dict "root" . "version" "23m") | nindent 6 }}

@@ -2,18 +2,18 @@
 --
 -- This is the only file mounted into the directory the container's setup
 -- runner scans, so it is the only script that runner starts. Everything else
--- is mounted at /Zoo-26, outside of that directory, and is started from here
--- in the order that create-11.sql itself defines.
+-- (the directory 'content', a copy of DB/Oracle) is mounted at /content,
+-- outside of that directory, and is started from here in the order
+-- that create-11.sql itself defines.
 --
--- The path below must be absolute. Inside Zoo-26/ the scripts refer
--- to each other by a bare name, so there '@@' works as intended.
+-- The path below must be absolute, it starts with the root of the container's
+-- file system.
+--
+-- Inside /content the scripts refer to each other with '@@'. SQL*Plus looks
+-- for a script next to the calling one only when it's included by a bare name;
+-- a name with a subdirectory (like '@@Sys/x.sql') is looked for in the current
+-- directory and then in the directories listed in the environment variable
+-- SQLPATH. That's why the containers are started with SQLPATH=/content.
 
-@/Zoo-26/create-11.sql
+@/content/create-11.sql
 
-
--- Tell the health check that the setup is over.
--- create-11.sql exits SQL*Plus on the first error, so this is reached
--- only when every script of the chain has succeeded.
-spool /tmp/zoo-26-setup-complete.log
-prompt Setup complete.
-spool off

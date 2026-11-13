@@ -8,6 +8,33 @@ create package Pro_Small_Pack is
 end Pro_Small_Pack;
 /
 
+create package body Pro_Small_Pack is
+
+    function Get_Something return positive is
+    begin
+        return 42;
+    end;
+
+    procedure Do_Something is
+        something positive;
+    begin
+        something := Get_Something;
+    end;
+
+    procedure Print_It (str string) is
+    begin
+        dbms_Output.put_line(str);
+    end;
+
+    procedure Print_It (num number) is
+    begin
+        dbms_Output.put_line(num);
+    end;
+
+end Pro_Small_Pack;
+/
+
+
 
 create type Pro_Small_Type as object
 (

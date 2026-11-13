@@ -20,6 +20,18 @@ create user C##_Tourist_D
     container = all
 /
 
+alter user C##_TOURIST_A
+    set container_data = all container = current
+/
+
+alter user C##_TOURIST_C
+    set container_data = all container = current
+/
+
+alter user C##_TOURIST_D
+    set container_data = all container = current
+/
+
 
 grant connect, debug connect session, debug any procedure
     to C##_Tourist_A, C##_Tourist_C, C##_Tourist_D
