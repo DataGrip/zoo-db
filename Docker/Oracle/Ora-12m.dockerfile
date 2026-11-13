@@ -3,6 +3,10 @@ FROM registry.jetbrains.team/p/datagrip/containers/oracle:12.2.0.1-e-orig
 
 USER root
 
+# createDB.sh removes totalMemory=2048 on hosts with more than 8 CPUs and
+# lets DBCA size memory from host RAM. Keep it within the container's 5 GiB limit.
+RUN sed -i -e 's/^totalMemory=.*/totalMemory=4096/' /opt/oracle/dbca.rsp.tmpl
+
 USER oracle
 
 ENV ORACLE_BASE=/opt/oracle \
