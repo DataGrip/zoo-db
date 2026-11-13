@@ -1,3 +1,5 @@
+{{ include "oracle.pvc" (dict "root" . "version" "12m") }}
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -40,6 +42,8 @@ spec:
       setHostnameAsFQDN: true
       imagePullSecrets:
       {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      initContainers:
+      {{- include "oracle.pvcInitContainer" (dict "root" . "version" "12m") | nindent 6 }}
       containers:
       - name: oracle12m
         imagePullPolicy: {{ .Values.pullPolicy }}
@@ -67,9 +71,11 @@ spec:
         - mountPath: {{ .Values.scriptsMountPath.default }}/run-12m.sql
           name: oracle-run
           subPath: run-12m.sql
+        {{- include "oracle.pvcVolumeMount" (dict "root" . "version" "12m") | nindent 8 }}
       hostname: oracle12m
       volumes:
       {{- include "oracle.scriptsVolume" . | nindent 6 }}
       - configMap:
             name: oracle-run
         name: oracle-run
+      {{- include "oracle.pvcVolume" (dict "root" . "version" "12m") | nindent 6 }}

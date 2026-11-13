@@ -24,6 +24,11 @@ oracle12c:
       cpu: "200m"
       memory: "4Gi"
       ephemeral-storage: "1Gi"
+  persistence:
+    enabled: true
+    size: 20Gi
+    storageClass: ""
+    mountPath: /opt/oracle/oradata
 oracle12m:
   image:
     repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
@@ -37,6 +42,11 @@ oracle12m:
       cpu: "200m"
       memory: "4Gi"
       ephemeral-storage: "1Gi"
+  persistence:
+    enabled: true
+    size: 20Gi
+    storageClass: ""
+    mountPath: /opt/oracle/oradata
 oracle19c:
   image:
     repository: registry.jetbrains.team/p/datagrip/containers/oracle-custom
